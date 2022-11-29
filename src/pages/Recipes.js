@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
-import Footer from '../components/Footer';
 import { useHistory } from 'react-router-dom';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Recipe from '../components/Recipe';
 import MealsContext from '../context/MealsContext';
