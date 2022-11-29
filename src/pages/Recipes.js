@@ -1,4 +1,5 @@
 import React, { useContext } from 'react';
+import Footer from '../components/Footer';
 import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import Recipe from '../components/Recipe';
@@ -11,6 +12,7 @@ function Recipes() {
   const { apiResponse } = useContext(MealsContext);
   return (
     <div>
+      <Footer />
       <Header
         pageTitle={ pageTitle }
         displaySearch
