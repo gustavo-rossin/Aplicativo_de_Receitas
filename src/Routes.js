@@ -15,11 +15,11 @@ export default class Routes extends Component {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={ Login } />
-          <Route path="/meals" component={ Recipes } />
-          <Route path="/meals/:id/in-progress" component={ RecipeInProgress } />
+          <Route exact path="/meals" component={ Recipes } />
+          <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
           <Route path="/drinks" component={ Recipes } />
           <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
-          <Route path="/details" component={ RecipeDetails } />
+          <Route exact path="/meals/:id" component={ RecipeDetails } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route path="/profile" component={ Profile } />

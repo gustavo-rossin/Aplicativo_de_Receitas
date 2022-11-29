@@ -1,13 +1,35 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import MealsContext from '../context/MealsContext';
+import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
 
 function SearchBar() {
-  const [filter, setFilter] = useState('');
+  const [filter, setFilter] = useState('nome');
   const [inputValue, setInputValue] = useState('');
-  // const [apiResponse, setApiResponse] = useState('');
+  const history = useHistory();
+  const { apiResponse, setApiResponse } = useContext(MealsContext);
+  console.log(apiResponse);
   const handleClick = async () => {
-    const response = await mealApi(inputValue, filter);
-    setApiResponse(response);
+    if (history.location.pathname === '/meals') {
+      const response = await mealApi(inputValue, filter);
+      setApiResponse(response.meals);
+      if (!response.meals) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (response.meals.length === 1) {
+        history.push(`/meals/${response.meals[0].idMeal}`);
+      }
+    } else {
+      const response = await drinkApi(inputValue, filter);
+      setApiResponse(response.drinks);
+      if (!response.drinks) {
+        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      }
+      if (response.drinks.length === 1) {
+        history.push(`/drinks/${response.drinks[0].idDrink}`);
+      }
+    }
   };
   return (
     <>
