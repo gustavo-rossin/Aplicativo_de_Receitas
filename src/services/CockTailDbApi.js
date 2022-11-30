@@ -11,6 +11,8 @@ const drinkApi = async (type, filter) => {
     result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${type}`);
   }
 
+  if (filter === 'category') result = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${type}`);
+
   const data = await result.json();
 
   return data;
