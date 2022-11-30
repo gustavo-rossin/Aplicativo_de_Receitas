@@ -1,5 +1,8 @@
 const mealApi = async (type, filter) => {
   let result;
+
+  if (filter === 'recipe-detail') result = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${type}`);
+
   if (filter === 'ingrediente') result = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${type}`);
 
   if (filter === 'nome') result = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${type}`);
