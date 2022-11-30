@@ -4,6 +4,8 @@ import MealsContext from '../context/MealsContext';
 import mealApi from '../services/MealDbApi';
 import drinkApi from '../services/CockTailDbApi';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
+import Recommendation from '../components/Recommendation';
+import './styles/RecipeDetails.css';
 
 function RecipeDetails() {
   const { apiResponse,
@@ -12,8 +14,7 @@ function RecipeDetails() {
     idResponse } = useContext(MealsContext);
 
   const history = useHistory();
-  console.log(apiResponse);
-
+  const maxValue = 6;
   const recipeId = history.location.pathname.split('/')[2];
 
   const pageTitle = history.location.pathname.includes('meals') ? 'Meals' : 'Drinks';
@@ -43,9 +44,29 @@ function RecipeDetails() {
           <DetailsMealsDrinks
             key={ e.idDrink || e.idMeal }
             recipe={ e }
-
           />))
       }
+      <h2>Recommendation</h2>
+      <div className="caroussel">
+        {
+          apiResponse && apiResponse.map((e, i) => (
+            <Recommendation
+              key={ e.idDrink || e.idMeal }
+              recommended={ e }
+              index={ i }
+            />
+          )).filter((_e, i) => i < maxValue)
+        }
+      </div>
+
+      <button
+        type="button"
+        data-testid="start-recipe-btn"
+        className="start-recipe-btn"
+      >
+        Start Recipe
+
+      </button>
 
     </div>
   );

@@ -12,9 +12,9 @@ function DetailsMealsDrinks({ recipe }) {
 
   return (
     <div>
-      <h3 data-testid="recipe-title">
+      <h1 data-testid="recipe-title">
         { recipe.strMeal || recipe.strDrink }
-      </h3>
+      </h1>
 
       <img
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
