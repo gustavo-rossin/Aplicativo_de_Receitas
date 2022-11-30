@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import MealsContext from '../context/MealsContext';
 import mealApi from '../services/MealDbApi';
@@ -12,8 +12,9 @@ function RecipeDetails() {
     setApiResponse,
     setIdResponse,
     idResponse } = useContext(MealsContext);
-
   const history = useHistory();
+  const [isDone, setIsDone] = useState(false);
+
   const maxValue = 6;
   const recipeId = history.location.pathname.split('/')[2];
 
@@ -33,8 +34,26 @@ function RecipeDetails() {
     }
   };
 
+  const verifyIsDone = () => {
+    const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+
+    const done = doneRecipes.some((e) => +e.id === +recipeId);
+    if (done) {
+      setIsDone(true);
+    }
+  };
+
+  const progressRedirect = () => {
+    if (pageTitle === 'Meals') {
+      history.push(`/meals/${recipeId}/in-progress`);
+    } else {
+      history.push(`/drinks/${recipeId}/in-progress`);
+    }
+  };
+
   useEffect(() => {
     apiRequests();
+    verifyIsDone();
   }, []);
 
   return (
@@ -59,14 +78,18 @@ function RecipeDetails() {
         }
       </div>
 
-      <button
-        type="button"
-        data-testid="start-recipe-btn"
-        className="start-recipe-btn"
-      >
-        Start Recipe
+      {
+        !isDone && (
+          <button
+            type="button"
+            data-testid="start-recipe-btn"
+            className="start-recipe-btn"
+            onClick={ progressRedirect }
+          >
+            Start Recipe
 
-      </button>
+          </button>)
+      }
 
     </div>
   );
