@@ -2,7 +2,7 @@ import React from 'react';
 import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import Footer from '../components/Footer';
-import renderWithRouter from '../services/renderWithRouter';
+import renderWithRouter from './helpers/renderWithRouter';
 
 describe('Testes do componente Footer', () => {
   it('Teste de integração', () => {

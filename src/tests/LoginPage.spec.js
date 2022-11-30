@@ -5,6 +5,9 @@ import App from '../App';
 
 describe('Testes da Página de Login', () => {
   it('Verifica se o usuário digitou um email/senha válida', () => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => Promise.resolve(''),
+    }));
     render(<App />);
     const inputMail = screen.getByTestId('email-input');
     expect(inputMail).toBeInTheDocument();
