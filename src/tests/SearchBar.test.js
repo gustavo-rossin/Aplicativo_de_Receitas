@@ -1,6 +1,5 @@
 import React from 'react';
-import { screen } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { waitFor, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouter from './helpers/renderWithRouter';
 import MealsProvider from '../context/MealsProvider';
@@ -10,11 +9,11 @@ import oneMealMock from './helpers/mocks/oneMealMock';
 import drinkMock from './helpers/mocks/drinkMock';
 import oneDrinkMock from './helpers/mocks/oneDrinkMock';
 
-describe('Testes para o Componente Search bar', () => {
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
+afterEach(() => {
+  jest.clearAllMocks();
+});
 
+describe('Testes para o Componente Search bar', () => {
   const searchInput = 'search-input';
   const searchTopBtn = 'search-top-btn';
   const execSearchBtn = 'exec-search-btn';
@@ -22,18 +21,16 @@ describe('Testes para o Componente Search bar', () => {
 
   it('1) Verifica a busca sem filtros', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mealMock),
     });
 
-    const apiResponse = mealMock;
-    const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+    renderWithRouter(
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/meals',
     );
-
-    act(() => history.push('/meals'));
 
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);
@@ -54,17 +51,16 @@ describe('Testes para o Componente Search bar', () => {
 
   it('2) Verifica a busca que retorna um unico meal ', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(oneMealMock),
     });
 
-    const apiResponse = mealMock;
     const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/meals',
     );
-    act(() => history.push('/meals'));
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);
     const inputSearch = screen.getByTestId(searchInput);
@@ -72,23 +68,21 @@ describe('Testes para o Componente Search bar', () => {
     userEvent.type(inputSearch, 'chicken');
     expect(inputSearch).toHaveValue('chicken');
     userEvent.click(inputButton);
-    await screen.findByText(chickenHandi);
-    expect(history.location.pathname).toBe('/meals/52795');
+    await waitFor(() => expect(history.location.pathname).toBe('/meals/52795'));
   });
 
   it('Verifica a busca por drinks', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(drinkMock),
     });
 
-    const apiResponse = drinkMock;
-    const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+    renderWithRouter(
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/drinks',
     );
-    act(() => history.push('/drinks'));
 
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);
@@ -103,17 +97,16 @@ describe('Testes para o Componente Search bar', () => {
 
   it('Verifica a busca que retorna um único drink', async () => {
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(oneDrinkMock),
     });
 
-    const apiResponse = drinkMock;
     const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/drinks',
     );
-    act(() => history.push('/drinks'));
 
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);
@@ -132,19 +125,18 @@ describe('Testes para o Componente Search bar', () => {
     };
 
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mealAlertMock),
     });
 
     jest.spyOn(window, 'alert').mockImplementation(() => 'Sorry, we haven\'t found any recipes for these filters.');
 
-    const apiResponse = mealAlertMock;
-    const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+    renderWithRouter(
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/meals',
     );
-    act(() => history.push('/meals'));
 
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);
@@ -160,19 +152,18 @@ describe('Testes para o Componente Search bar', () => {
     };
 
     jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValueOnce({
+    global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(mealAlertMock),
     });
 
     jest.spyOn(window, 'alert').mockImplementation(() => 'Sorry, we haven\'t found any recipes for these filters.');
 
-    const apiResponse = mealAlertMock;
-    const { history } = renderWithRouter(
-      <MealsProvider value={ apiResponse }>
+    renderWithRouter(
+      <MealsProvider>
         <Recipes />
       </MealsProvider>,
+      '/drinks',
     );
-    act(() => history.push('/drinks'));
 
     const searchBtn = await screen.findByTestId(searchTopBtn);
     userEvent.click(searchBtn);

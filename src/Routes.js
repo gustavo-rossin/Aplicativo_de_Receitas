@@ -21,6 +21,7 @@ export default class Routes extends Component {
           <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
           <Route exact path="/drinks/:id" component={ RecipeDetails } />
           <Route exact path="/meals/:id" component={ RecipeDetails } />
+          <Route exact path="/drinks/:id" component={ RecipeDetails } />
           <Route exact path="/done-recipes" component={ DoneRecipes } />
           <Route path="/favorite-recipes" component={ FavoriteRecipes } />
           <Route path="/profile" component={ Profile } />
