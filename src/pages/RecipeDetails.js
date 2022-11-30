@@ -65,6 +65,20 @@ function RecipeDetails() {
             recipe={ e }
           />))
       }
+      <div>
+        <button
+          type="button"
+          data-testid="share-btn"
+        >
+          share
+        </button>
+        <button
+          type="button"
+          data-testid="favorite-btn"
+        >
+          favorite
+        </button>
+      </div>
       <h2>Recommendation</h2>
       <div className="caroussel">
         {
