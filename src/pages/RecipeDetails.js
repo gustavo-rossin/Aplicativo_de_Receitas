@@ -142,6 +142,7 @@ function RecipeDetails() {
             <button
               type="button"
               data-testid="start-recipe-btn"
+              onClick={ progressRedirect }
             >
               Continue Recipe
 
