@@ -6,34 +6,40 @@ import drinkApi from '../services/CockTailDbApi';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 
 function RecipeDetails() {
-  const { apiResponse, setApiResponse } = useContext(MealsContext);
+  const { apiResponse,
+    setApiResponse,
+    setIdResponse,
+    idResponse } = useContext(MealsContext);
 
   const history = useHistory();
-
   console.log(apiResponse);
 
   const recipeId = history.location.pathname.split('/')[2];
 
   const pageTitle = history.location.pathname.includes('meals') ? 'Meals' : 'Drinks';
 
-  const searchId = async () => {
+  const apiRequests = async () => {
     if (pageTitle === 'Meals') {
-      const response = await mealApi(recipeId, 'recipe-detail');
-      setApiResponse(response.meals);
-    } else {
-      const response = await drinkApi(recipeId, 'recipe-detail');
+      const responseId = await mealApi(recipeId, 'recipe-detail');
+      setIdResponse(responseId.meals);
+      const response = await drinkApi('', 'nome');
       setApiResponse(response.drinks);
+    } else {
+      const responseId = await drinkApi(recipeId, 'recipe-detail');
+      setIdResponse(responseId.drinks);
+      const response = await mealApi('', 'nome');
+      setApiResponse(response.meals);
     }
   };
 
   useEffect(() => {
-    searchId();
+    apiRequests();
   }, []);
 
   return (
     <div>
       {
-        apiResponse && apiResponse.map((e) => (
+        idResponse && idResponse.map((e) => (
           <DetailsMealsDrinks
             key={ e.idDrink || e.idMeal }
             recipe={ e }

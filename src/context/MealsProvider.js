@@ -7,6 +7,7 @@ import MealsContext from './MealsContext';
 
 function MealsProvider({ children }) {
   const [apiResponse, setApiResponse] = useState([]);
+  const [idResponse, setIdResponse] = useState([]);
 
   // const history = useHistory();
 
@@ -30,7 +31,11 @@ function MealsProvider({ children }) {
   return (
     <MealsContext.Provider
       value={
-        useMemo(() => ({ apiResponse, setApiResponse }), [apiResponse, setApiResponse])
+        useMemo(() => ({
+          apiResponse,
+          setApiResponse,
+          idResponse,
+          setIdResponse }), [apiResponse, setApiResponse, idResponse, setApiResponse])
       }
     >
       { children }
