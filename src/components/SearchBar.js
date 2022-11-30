@@ -8,8 +8,7 @@ function SearchBar() {
   const [filter, setFilter] = useState('nome');
   const [inputValue, setInputValue] = useState('');
   const history = useHistory();
-  const { apiResponse, setApiResponse } = useContext(MealsContext);
-  console.log(apiResponse);
+  const { setApiResponse } = useContext(MealsContext);
   const handleClick = async () => {
     if (history.location.pathname === '/meals') {
       const response = await mealApi(inputValue, filter);
