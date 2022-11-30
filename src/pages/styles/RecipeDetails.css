@@ -1,9 +1,9 @@
 .caroussel {
-    display: flex;
-    overflow-x: scroll;
+  display: flex;
+  overflow-x: scroll;
 }
 
 .start-recipe-btn{
-    position: fixed;
-    bottom: 0;
+  bottom: 0;
+  position: fixed;
 }

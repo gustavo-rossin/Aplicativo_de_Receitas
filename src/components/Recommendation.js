@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import './styles/Recommendation.css';
 
 function Recommendation({ recommended, index }) {
   return (
