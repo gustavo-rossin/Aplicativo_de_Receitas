@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -17,30 +17,28 @@ function Recipes() {
   const [categoryResponse, setCategory] = useState([]);
   const [currentCategory, setCurrentCategory] = useState('');
 
-  const getDefaultRecipes = async () => {
+  const getDefaultRecipes = useCallback(async () => {
     let data;
-    if (history.location.pathname === '/meals') {
+    if (pageTitle === 'Meals') {
       data = await MealDbApi('', 'nome');
       if (data.meals) setApiResponse(data.meals);
       console.log(data.meals);
     }
-    if (history.location.pathname === '/drinks') {
+    if (pageTitle === 'Drinks') {
       data = await CockTailDbApi('', 'nome');
       if (data.drinks) setApiResponse(data.drinks);
     }
-  };
+  }, [setApiResponse, pageTitle]);
+
+  const getCategories = useCallback(async () => {
+    const categories = await categoryApi(pageTitle);
+    setCategory(categories);
+  }, [pageTitle, setCategory]);
 
   useEffect(() => {
     getDefaultRecipes();
-  }, [setApiResponse, history.location.pathname]);
-
-  useEffect(() => {
-    const getCategories = async () => {
-      const categories = await categoryApi(pageTitle);
-      setCategory(categories);
-    };
     getCategories();
-  }, []);
+  }, [getDefaultRecipes, getCategories]);
 
   const handleClick = (id) => {
     if (pageTitle === 'Meals') {
@@ -75,6 +73,14 @@ function Recipes() {
         pageTitle={ pageTitle }
         displaySearch
       />
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        checked={ currentCategory === '' }
+        onClick={ () => { getDefaultRecipes(); setCurrentCategory(''); } }
+      >
+        All
+      </button>
       { categoryResponse.map((e) => (
         <input
           type="radio"
