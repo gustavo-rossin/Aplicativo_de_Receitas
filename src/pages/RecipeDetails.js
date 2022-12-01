@@ -5,6 +5,9 @@ import mealApi from '../services/MealDbApi';
 import drinkApi from '../services/CockTailDbApi';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import Recommendation from '../components/Recommendation';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+
 import './styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
@@ -18,8 +21,7 @@ function RecipeDetails() {
   const [isDone, setIsDone] = useState(false);
   const [wasCopied, setWasCopied] = useState(false);
   const [inProgress, setInProgress] = useState(false);
-
-  console.log(idResponse);
+  const [isFavorite, setFavorite] = useState(false);
 
   const maxValue = 6;
   const recipeId = history.location.pathname.split('/')[2];
@@ -80,14 +82,54 @@ function RecipeDetails() {
     setWasCopied(true);
   };
 
+  const verifyFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    const isFav = favorites.some((e) => +e.id === +recipeId);
+    if (isFav) {
+      setFavorite(true);
+    } else {
+      setFavorite(false);
+    }
+  };
+
+  const saveFavorite = (arr) => {
+    const favoriteObject = {
+      id: idResponse[0].idMeal || idResponse[0].idDrink,
+      type: pageTitle === 'Meals' ? 'meal' : 'drink',
+      nationality: idResponse[0].strArea || '',
+      category: idResponse[0].strCategory,
+      alcoholicOrNot: idResponse[0].strAlcoholic || '',
+      name: idResponse[0].strDrink || idResponse[0].strMeal,
+      image: idResponse[0].strDrinkThumb || idResponse[0].strMealThumb,
+    };
+    const newFavorites = [...arr, favoriteObject];
+    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
+  };
+
+  const removeFavorite = (arr) => {
+    const filterFavorite = arr.filter((e) => +e.id !== +recipeId);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(filterFavorite));
+  };
+
+  const toggleFavorite = () => {
+    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    if (isFavorite) {
+      removeFavorite(favorites);
+    } else {
+      saveFavorite(favorites);
+    }
+    verifyFavorite();
+  };
+
   useEffect(() => {
     apiRequests();
     verifyIsDone();
     continueRecipes();
+    verifyFavorite();
   }, []);
 
   return (
-    <div>
+    <>
       {
         idResponse && idResponse.map((e) => (
           <DetailsMealsDrinks
@@ -106,12 +148,16 @@ function RecipeDetails() {
               share
             </button>)
         }
-
         <button
           type="button"
           data-testid="favorite-btn"
+          onClick={ toggleFavorite }
+          src={ isFavorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
         >
-          favorite
+          {
+            isFavorite ? <img src={ blackHeartIcon } alt="blackHeart" />
+              : <img src={ whiteHeart } alt="whiteHeart" />
+          }
         </button>
       </div>
       <h2>Recommendation</h2>
@@ -147,10 +193,9 @@ function RecipeDetails() {
               Continue Recipe
 
             </button>))
-
       }
 
-    </div>
+    </>
   );
 }
 
