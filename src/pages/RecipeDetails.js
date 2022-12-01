@@ -78,7 +78,6 @@ function RecipeDetails() {
 
   const clipBoardShare = () => {
     copy(`http://localhost:3000${history.location.pathname}`);
-    console.log(history.location.pathname);
     setWasCopied(true);
   };
 
