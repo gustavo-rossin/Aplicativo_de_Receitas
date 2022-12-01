@@ -30,6 +30,7 @@ function RecipeInProgress() {
   }, [history, pathname]);
 
   return (
+
     <div>
       {
         recipeInProgress && recipeInProgress.map((e) => (<DetailsMealsDrinks
@@ -57,6 +58,7 @@ function RecipeInProgress() {
         Finalizar
       </button>
     </div>
+
   );
 }
 
