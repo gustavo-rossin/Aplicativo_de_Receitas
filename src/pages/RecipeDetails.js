@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import MealsContext from '../context/MealsContext';
-import mealApi from '../services/MealDbApi';
-import drinkApi from '../services/CockTailDbApi';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import Recommendation from '../components/Recommendation';
-import whiteHeart from '../images/whiteHeartIcon.svg';
+import MealsContext from '../context/MealsContext';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
+import whiteHeart from '../images/whiteHeartIcon.svg';
+import drinkApi from '../services/CockTailDbApi';
+import mealApi from '../services/MealDbApi';
 
 import './styles/RecipeDetails.css';
 
@@ -174,7 +174,7 @@ function RecipeDetails() {
       </div>
 
       {
-        (!isDone && !inProgress) ? (
+        !isDone && (!inProgress ? (
           <button
             type="button"
             data-testid="start-recipe-btn"
@@ -192,7 +192,7 @@ function RecipeDetails() {
             >
               Continue Recipe
 
-            </button>))
+            </button>)))
       }
 
     </>

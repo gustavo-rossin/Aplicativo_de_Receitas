@@ -2,11 +2,11 @@ import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import MealDbApi from '../services/MealDbApi';
-import CockTailDbApi from '../services/CockTailDbApi';
 import Recipe from '../components/Recipe';
 import MealsContext from '../context/MealsContext';
 import categoryApi from '../services/CategoryApi';
+import CockTailDbApi from '../services/CockTailDbApi';
+import MealDbApi from '../services/MealDbApi';
 
 function Recipes() {
   const history = useHistory();
