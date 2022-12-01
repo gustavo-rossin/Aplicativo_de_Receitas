@@ -1,0 +1,7 @@
+.linethrough {
+  text-decoration: line-through solid black;
+}
+
+.unmarked {
+  text-decoration: solid;
+}
