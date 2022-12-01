@@ -13,7 +13,7 @@ function MealsProvider({ children }) {
           apiResponse,
           setApiResponse,
           idResponse,
-          setIdResponse }), [apiResponse, setApiResponse, idResponse, setApiResponse])
+          setIdResponse }), [apiResponse, idResponse])
       }
     >
       { children }

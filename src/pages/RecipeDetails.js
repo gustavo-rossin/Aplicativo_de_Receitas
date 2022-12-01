@@ -128,6 +128,8 @@ function RecipeDetails() {
     verifyFavorite();
   }, []);
 
+  console.log(idResponse);
+
   return (
     <>
       {
