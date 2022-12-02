@@ -5,6 +5,9 @@ import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import { verifyFavorite,
+  saveFavorite,
+  removeFavorite } from '../services/favoriteFunctions';
 
 const copy = require('clipboard-copy');
 
@@ -55,48 +58,19 @@ function RecipeInProgress() {
     setWasCopied(true);
   };
 
-  const verifyFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const isFav = favorites.some((e) => +e.id === +recipeId);
-    if (isFav) {
-      setFavorite(true);
-    } else {
-      setFavorite(false);
-    }
-  };
-
-  const saveFavorite = (arr) => {
-    const favoriteObject = {
-      id: recipeInProgress[0].idMeal || recipeInProgress[0].idDrink,
-      type: pageTitle === 'Meals' ? 'meal' : 'drink',
-      nationality: recipeInProgress[0].strArea || '',
-      category: recipeInProgress[0].strCategory,
-      alcoholicOrNot: recipeInProgress[0].strAlcoholic || '',
-      name: recipeInProgress[0].strDrink || recipeInProgress[0].strMeal,
-      image: recipeInProgress[0].strDrinkThumb || recipeInProgress[0].strMealThumb,
-    };
-    const newFavorites = [...arr, favoriteObject];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-  };
-
-  const removeFavorite = (arr) => {
-    const filterFavorite = arr.filter((e) => +e.id !== +recipeId);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(filterFavorite));
-  };
-
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (isFavorite) {
-      removeFavorite(favorites);
+      removeFavorite(favorites, recipeId);
     } else {
-      saveFavorite(favorites);
+      saveFavorite(favorites, recipeInProgress, pageTitle);
     }
-    verifyFavorite();
+    verifyFavorite(setFavorite, recipeId);
   };
 
   useEffect(() => {
     recipeDetails();
-    verifyFavorite();
+    verifyFavorite(setFavorite, recipeId);
   }, [history, pathname]);
 
   return (
