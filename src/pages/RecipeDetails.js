@@ -7,7 +7,9 @@ import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
 import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
-
+import { verifyFavorite,
+  saveFavorite,
+  removeFavorite } from '../services/favoriteFunctions';
 import './styles/RecipeDetails.css';
 
 const copy = require('clipboard-copy');
@@ -81,53 +83,22 @@ function RecipeDetails() {
     setWasCopied(true);
   };
 
-  const verifyFavorite = () => {
-    const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    const isFav = favorites.some((e) => +e.id === +recipeId);
-    if (isFav) {
-      setFavorite(true);
-    } else {
-      setFavorite(false);
-    }
-  };
-
-  const saveFavorite = (arr) => {
-    const favoriteObject = {
-      id: idResponse[0].idMeal || idResponse[0].idDrink,
-      type: pageTitle === 'Meals' ? 'meal' : 'drink',
-      nationality: idResponse[0].strArea || '',
-      category: idResponse[0].strCategory,
-      alcoholicOrNot: idResponse[0].strAlcoholic || '',
-      name: idResponse[0].strDrink || idResponse[0].strMeal,
-      image: idResponse[0].strDrinkThumb || idResponse[0].strMealThumb,
-    };
-    const newFavorites = [...arr, favoriteObject];
-    localStorage.setItem('favoriteRecipes', JSON.stringify(newFavorites));
-  };
-
-  const removeFavorite = (arr) => {
-    const filterFavorite = arr.filter((e) => +e.id !== +recipeId);
-    localStorage.setItem('favoriteRecipes', JSON.stringify(filterFavorite));
-  };
-
   const toggleFavorite = () => {
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     if (isFavorite) {
-      removeFavorite(favorites);
+      removeFavorite(favorites, recipeId);
     } else {
-      saveFavorite(favorites);
+      saveFavorite(favorites, idResponse, pageTitle);
     }
-    verifyFavorite();
+    verifyFavorite(setFavorite, recipeId);
   };
 
   useEffect(() => {
     apiRequests();
     verifyIsDone();
     continueRecipes();
-    verifyFavorite();
+    verifyFavorite(setFavorite, recipeId);
   }, []);
-
-  console.log(idResponse);
 
   return (
     <>
