@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import shareIcon from '../images/shareIcon.svg';
 
 function RenderDoneRecipe({ recipeToRender, index }) {
+  console.log(recipeToRender.tags);
   const [linkIsCopied, setIsCopied] = useState(false);
 
   const getRecipeUrl = (recipe) => {

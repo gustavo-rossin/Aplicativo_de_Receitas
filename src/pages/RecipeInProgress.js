@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHeart from '../images/whiteHeartIcon.svg';
+import MealsContext from '../context/MealsContext';
 import { verifyFavorite,
   saveFavorite,
   removeFavorite } from '../services/favoriteFunctions';
@@ -13,9 +14,11 @@ const copy = require('clipboard-copy');
 
 function RecipeInProgress() {
   const history = useHistory();
+  const { finishedIngredients } = useContext(MealsContext);
   const [wasCopied, setWasCopied] = useState(false);
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [isFavorite, setFavorite] = useState(false);
+  console.log(recipeInProgress);
 
   const { pathname } = history.location;
   const recipeId = pathname.replace(/[^0-9]/g, '');
@@ -68,10 +71,47 @@ function RecipeInProgress() {
     verifyFavorite(setFavorite, recipeId);
   };
 
+  const extractRecipeInfos = (key) => Object.entries(recipeInProgress[0])
+    .filter((e) => e[0].includes(key) && e[1]).map((e) => e[1]);
+
+  const ingredientsCheck = () => {
+    if (recipeInProgress.length > 0) {
+      const ingredientName = extractRecipeInfos('strIngredient');
+
+      return ingredientName.length === finishedIngredients.length;
+    }
+  };
+
+  const convertTagStringIntoArray = () => {
+    const firstSplit = recipeInProgress[0].strTags.split(',');
+    if (firstSplit.length > 1) {
+      return firstSplit;
+    }
+    return recipeInProgress[0].strTags.split();
+  };
+
+  const doneRecipe = () => {
+    const getDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes') || '[]');
+    const doneObject = {
+      id: recipeInProgress[0].idMeal || recipeInProgress[0].idDrink,
+      type: pageTitle === 'Meals' ? 'meal' : 'drink',
+      nationality: recipeInProgress[0].strArea || '',
+      category: recipeInProgress[0].strCategory,
+      alcoholicOrNot: recipeInProgress[0].strAlcoholic || '',
+      name: recipeInProgress[0].strDrink || recipeInProgress[0].strMeal,
+      image: recipeInProgress[0].strDrinkThumb || recipeInProgress[0].strMealThumb,
+      doneDate: new Date(),
+      tags: recipeInProgress[0].strTags ? convertTagStringIntoArray() : [],
+    };
+    const doneRecipes = [...getDoneRecipes, doneObject];
+    localStorage.setItem('doneRecipes', JSON.stringify(doneRecipes));
+    history.push('/done-recipes');
+  };
+
   useEffect(() => {
     recipeDetails();
     verifyFavorite(setFavorite, recipeId);
-  }, [history, pathname]);
+  }, [history, pathname, finishedIngredients]);
 
   return (
 
@@ -108,6 +148,8 @@ function RecipeInProgress() {
       <button
         type="button"
         data-testid="finish-recipe-btn"
+        disabled={ !ingredientsCheck() }
+        onClick={ doneRecipe }
       >
         Finalizar
       </button>

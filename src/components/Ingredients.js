@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles/Ingredients.css';
+import MealsContext from '../context/MealsContext';
 
 function Ingredients({ ingredient, index }) {
   const history = useHistory();
+
+  const { setFinishedIngredients } = useContext(MealsContext);
+
   const [isDone, setIsDone] = useState(false);
   const recipeID = history.location.pathname.replace(/[^0-9]/g, '');
   const pageTitle = history.location.pathname.includes('meals') ? 'meals' : 'drinks';
@@ -17,12 +21,14 @@ function Ingredients({ ingredient, index }) {
       const verifyIngredient = isInProgress.some((e) => e === ingredient);
       if (verifyIngredient) {
         setIsDone(true);
+        setFinishedIngredients(isInProgress);
       }
     } else {
       const isInProgress = inProgressRecipe.drinks[recipeID] || [];
       const verifyIngredient = isInProgress.some((e) => e === ingredient);
       if (verifyIngredient) {
         setIsDone(true);
+        setFinishedIngredients(isInProgress);
       }
     }
   };
@@ -36,10 +42,12 @@ function Ingredients({ ingredient, index }) {
       const filter = isInProgress.filter((e) => e !== ingredient);
       inProgressRecipe[type][recipeID] = filter;
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
+      setFinishedIngredients(inProgressRecipe);
     } else {
       const newArr = [...isInProgress, ingredient];
       inProgressRecipe[type][recipeID] = newArr;
       localStorage.setItem('inProgressRecipes', JSON.stringify(inProgressRecipe));
+      setFinishedIngredients([...isInProgress, ingredient]);
     }
   };
 
@@ -58,11 +66,12 @@ function Ingredients({ ingredient, index }) {
         htmlFor={ ingredient }
         data-testid={ `${index}-ingredient-step` }
         className={ isDone ? 'linethrough' : 'unmarked' }
+
       >
         <input
           id={ ingredient }
           type="checkbox"
-          onClick={ handleClick }
+          onChange={ handleClick }
           checked={ isDone }
         />
         {ingredient }
