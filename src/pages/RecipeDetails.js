@@ -175,7 +175,7 @@ function RecipeDetails() {
       </div>
 
       {
-        !isDone && (!inProgress ? (
+        !isDone && !inProgress ? (
           <button
             type="button"
             data-testid="start-recipe-btn"
@@ -193,7 +193,7 @@ function RecipeDetails() {
             >
               Continue Recipe
 
-            </button>)))
+            </button>))
       }
 
     </>
