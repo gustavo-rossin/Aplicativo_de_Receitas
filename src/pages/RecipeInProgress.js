@@ -18,7 +18,6 @@ function RecipeInProgress() {
   const [wasCopied, setWasCopied] = useState(false);
   const [recipeInProgress, setRecipeInProgress] = useState([]);
   const [isFavorite, setFavorite] = useState(false);
-  console.log(recipeInProgress);
 
   const { pathname } = history.location;
   const recipeId = pathname.replace(/[^0-9]/g, '');
