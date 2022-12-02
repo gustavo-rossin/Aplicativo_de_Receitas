@@ -51,17 +51,17 @@ function RecipeDetails() {
   };
 
   const continueRecipes = () => {
-    const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'))
-     || { drinks: '', meals: '' };
+    const inProgressRecipes = JSON
+      .parse(localStorage.getItem('inProgressRecipes')) || { drinks: {}, meals: {} };
     if (pageTitle === 'Drinks') {
       const progress = Object.keys(inProgressRecipes.drinks)
-        .some((e) => +e === +recipeId);
+        .some((e) => e === recipeId);
       if (progress) {
         setInProgress(true);
       }
     } else {
       const progress = Object.keys(inProgressRecipes.meals)
-        .some((e) => +e === +recipeId);
+        .some((e) => e === recipeId);
       if (progress) {
         setInProgress(true);
       }

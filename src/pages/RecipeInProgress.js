@@ -15,14 +15,32 @@ function RecipeInProgress() {
 
   const pageTitle = pathname.includes('meals') ? 'Meals' : 'Drinks';
 
+  const startRecipe = (type, id) => {
+    const getRecipesInProgress = JSON
+      .parse(localStorage.getItem('inProgressRecipes')) || { meals: {}, drinks: {} };
+
+    const startInProgress = {
+      ...getRecipesInProgress,
+
+      [type]: {
+        ...getRecipesInProgress[type],
+        [id]: getRecipesInProgress[type][id] || [],
+      },
+    };
+
+    localStorage.setItem('inProgressRecipes', JSON.stringify(startInProgress));
+  };
+
   const recipeDetails = async () => {
     if (pageTitle === 'Meals') {
       const mealsData = await mealApi(recipeID, 'recipe-detail');
       if (mealsData) setRecipeInProgress(mealsData.meals);
+      startRecipe('meals', recipeID);
     }
     if (pageTitle === 'Drinks') {
       const cocktailsData = await drinkApi(recipeID, 'recipe-detail');
       if (cocktailsData) setRecipeInProgress(cocktailsData.drinks);
+      startRecipe('drinks', recipeID);
     }
   };
   useEffect(() => {
