@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import React from 'react';
 import MealsProvider from '../context/MealsProvider';
@@ -44,7 +44,7 @@ describe('Testes da página de \'Recipe in Progress \'', () => {
     expect(title).toBeInTheDocument();
   });
 
-  it('3) Teste dos botões share/favorite/finalizar', async () => {
+  it('3) Teste dos botões share/favorite', async () => {
     jest.spyOn(global, 'fetch');
     global.fetch.mockResolvedValue({
       json: jest.fn().mockResolvedValue(etonMessMock),
@@ -68,8 +68,6 @@ describe('Testes da página de \'Recipe in Progress \'', () => {
     userEvent.click(shareBtn);
     screen.getByText('Link copied!');
     const favoriteBtn = screen.getByTestId('favorite-btn');
-    const finishRecipeBtn = screen.getByTestId('finish-recipe-btn');
-    userEvent.click(finishRecipeBtn);
     expect(favoriteBtn).toHaveAttribute('src', 'whiteHeartIcon');
 
     userEvent.click(favoriteBtn);
@@ -82,5 +80,73 @@ describe('Testes da página de \'Recipe in Progress \'', () => {
 
     const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(newFavorites).toHaveLength(0);
+  });
+
+  it('4) Teste do botão finalizar de meal', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(etonMessMock),
+    });
+
+    const { history } = renderWithRouter(
+      <MealsProvider>
+        <RecipeInProgress />
+      </MealsProvider>,
+      meals52791,
+    );
+    const finishRecipeBtn = screen.getByTestId('finish-recipe-btn');
+    const title = await screen.findByRole('heading', { name: /eton mess/i });
+    expect(title).toBeInTheDocument();
+    const strawberries = screen.getByTestId('0-ingredient-step');
+
+    const cream = screen.getByTestId('1-ingredient-step');
+    const meringue = screen.getByTestId('2-ingredient-step');
+    const ginger = screen.getByTestId('3-ingredient-step');
+    const mint = screen.getByTestId('4-ingredient-step');
+
+    userEvent.click(strawberries);
+    userEvent.click(cream);
+    userEvent.click(meringue);
+    userEvent.click(ginger);
+    userEvent.click(mint);
+    expect(strawberries).toHaveClass('linethrough');
+    expect(cream).toHaveClass('linethrough');
+    expect(meringue).toHaveClass('linethrough');
+    expect(ginger).toHaveClass('linethrough');
+    expect(mint).toHaveClass('linethrough');
+
+    userEvent.click(finishRecipeBtn);
+    await waitFor(() => expect(history.location.pathname).toBe('/done-recipes'));
+  });
+
+  it('5) Teste do botão finalizar de drink', async () => {
+    jest.spyOn(global, 'fetch');
+    global.fetch.mockResolvedValue({
+      json: jest.fn().mockResolvedValue(aquaMarineDrink),
+    });
+
+    const { history } = renderWithRouter(
+      <MealsProvider>
+        <RecipeInProgress />
+      </MealsProvider>,
+      drinks178319,
+    );
+    const finishRecipeBtn = screen.getByTestId('finish-recipe-btn');
+    const title = await screen.findByRole('heading', { name: /aquamarine/i });
+    expect(title).toBeInTheDocument();
+
+    const ingredient0 = screen.getByTestId('0-ingredient-step');
+    const ingredient1 = screen.getByTestId('1-ingredient-step');
+    const ingredient2 = screen.getByTestId('2-ingredient-step');
+
+    userEvent.click(ingredient0);
+    userEvent.click(ingredient1);
+    userEvent.click(ingredient2);
+    expect(ingredient0).toHaveClass('linethrough');
+    expect(ingredient1).toHaveClass('linethrough');
+    expect(ingredient2).toHaveClass('linethrough');
+
+    userEvent.click(finishRecipeBtn);
+    await waitFor(() => expect(history.location.pathname).toBe('/done-recipes'));
   });
 });
