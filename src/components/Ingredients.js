@@ -3,7 +3,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles/Ingredients.css';
 import MealsContext from '../context/MealsContext';
-
+//
 function Ingredients({ ingredient, index }) {
   const history = useHistory();
 
