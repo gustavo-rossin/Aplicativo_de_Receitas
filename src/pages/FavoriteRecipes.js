@@ -9,6 +9,7 @@ const copy = require('clipboard-copy');
 function FavoriteRecipes() {
   const favorites = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
   const [arrFavorites, setFavorites] = useState(favorites);
+  const [copied, setCopied] = useState('');
 
   const filterAll = () => {
     setFavorites(favorites);
@@ -30,9 +31,11 @@ function FavoriteRecipes() {
   const clipBoardShare = (id, type) => {
     if (type === 'meal') {
       copy(`http://localhost:3000/meals/${id}`);
+      setCopied(id);
     }
     if (type === 'drink') {
       copy(`http://localhost:3000/drinks/${id}`);
+      setCopied(id);
     }
   };
 
@@ -94,17 +97,18 @@ function FavoriteRecipes() {
                 >
                   <img src={ blackHeartIcon } alt="blackHeart" name={ e.name } />
                 </button>
-
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-share-btn` }
-                  onClick={ () => clipBoardShare(e.id, e.type) }
-                  src="shareIcon"
-                  name={ e.id }
-                >
-                  <img src={ shareIcon } alt="share" />
-                </button>
-
+                {
+                  copied === e.id ? <span data-testid={ e.id }>Link copied!</span> : (
+                    <button
+                      type="button"
+                      data-testid={ `${index}-horizontal-share-btn` }
+                      onClick={ () => clipBoardShare(e.id, e.type) }
+                      src="shareIcon"
+                      name={ e.id }
+                    >
+                      <img src={ shareIcon } alt="share" />
+                    </button>)
+                }
               </div>
             );
           }
@@ -134,14 +138,18 @@ function FavoriteRecipes() {
                 <img src={ blackHeartIcon } alt="blackHeart" name={ e.name } />
               </button>
 
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-share-btn` }
-                onClick={ () => clipBoardShare(e.id, e.type) }
-                src="shareIcon"
-              >
-                <img src={ shareIcon } alt="share" />
-              </button>
+              {
+                copied === e.id ? <span data-testid={ e.id }>Link copied!</span> : (
+                  <button
+                    type="button"
+                    data-testid={ `${index}-horizontal-share-btn` }
+                    onClick={ () => clipBoardShare(e.id, e.type) }
+                    src="shareIcon"
+                    name={ e.id }
+                  >
+                    <img src={ shareIcon } alt="share" />
+                  </button>)
+              }
 
             </div>
           );
