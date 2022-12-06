@@ -1,24 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import * as S from './styles/Recipe.style';
 
 function Recipe({ onClick, recipe, index }) {
   return (
-    <div
+    <S.recipeContainer
       data-testid={ `${index}-recipe-card` }
     >
-      <h3 data-testid={ `${index}-card-name` }>
-        { recipe.strMeal || recipe.strDrink }
-        {' '}
-      </h3>
-      <button type="button" onClick={ onClick }>
-        <img
+      <S.imgBtn type="button" onClick={ onClick }>
+        <S.recipeImg
           src={ recipe.strMealThumb || recipe.strDrinkThumb }
           alt="recipeImg"
           width="200"
           data-testid={ `${index}-card-img` }
         />
-      </button>
-    </div>
+      </S.imgBtn>
+      <S.recipeTitle data-testid={ `${index}-card-name` }>
+        { recipe.strMeal || recipe.strDrink }
+        {' '}
+      </S.recipeTitle>
+    </S.recipeContainer>
   );
 }
 

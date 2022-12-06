@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect } from 'react';
+import logo from '../images/logo.svg';
+import tomatepicture from '../images/tomate.svg';
+import * as S from './styles/Login.style';
 
 function Login({ history }) {
   const [email, setEmail] = useState('');
@@ -30,30 +33,36 @@ function Login({ history }) {
   };
 
   return (
-    <form>
-      <input
-        type="email"
-        onChange={ ({ target }) => setEmail(target.value) }
-        placeholder="email"
-        data-testid="email-input"
-
-      />
-      <input
-        type="password"
-        placeholder="password"
-        data-testid="password-input"
-        onChange={ ({ target }) => setPassword(target.value) }
-      />
-      <button
-        type="button"
-        data-testid="login-submit-btn"
-        onClick={ handleSubmit }
-        disabled={ isDisabled }
-      >
-        Entrar
-
-      </button>
-    </form>
+    <S.loginStyle>
+      <S.formLoginContainer>
+        <S.imgsContainer>
+          <S.logo src={ logo } alt="logo" />
+          <S.tomate src={ tomatepicture } alt="tomate" />
+        </S.imgsContainer>
+        <S.inputContainer>
+          <S.inputMailAndPassword
+            type="email"
+            onChange={ ({ target }) => setEmail(target.value) }
+            placeholder="Email"
+            data-testid="email-input"
+          />
+          <S.inputMailAndPassword
+            type="password"
+            placeholder="Password"
+            data-testid="password-input"
+            onChange={ ({ target }) => setPassword(target.value) }
+          />
+          <S.loginBtn
+            type="button"
+            data-testid="login-submit-btn"
+            onClick={ handleSubmit }
+            disabled={ isDisabled }
+          >
+            Entrar
+          </S.loginBtn>
+        </S.inputContainer>
+      </S.formLoginContainer>
+    </S.loginStyle>
   );
 }
 

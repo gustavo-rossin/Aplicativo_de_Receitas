@@ -1,61 +1,54 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
+import iconRecipe from '../images/iconeRecipe.svg';
+import logo from '../images/headerLogo.svg';
+import * as S from './styles/Header.style';
 
-function Header({ pageTitle, displaySearch }) {
+function Header({ displaySearch }) {
   const history = useHistory();
   const [isSearching, setIsSearching] = useState(false);
 
   return (
-    <div>
-      <div>
+    <S.header>
+      <S.topBar>
+        <S.iconRecipe src={ iconRecipe } alt="icon" />
+        <S.headerLogo src={ logo } alt="logo" />
         {
           displaySearch && (
-            <button
-              type="button"
-              onClick={ () => setIsSearching(!isSearching) }
-            >
-              <img
-                data-testid="search-top-btn"
-                src={ searchIcon }
-                alt="Search Button"
-              />
-            </button>
+            <S.searchIcon className="material-icons">
+              <S.buttonSearch
+                type="button"
+                onClick={ () => setIsSearching(!isSearching) }
+              >
+                search
+              </S.buttonSearch>
+            </S.searchIcon>
           )
         }
-        <button
-          type="button"
-          onClick={ () => history.push('/profile') }
-        >
-          <img
-            data-testid="profile-top-btn"
-            src={ profileIcon }
-            alt="Profile Button"
-          />
-        </button>
-        <h3
-          data-testid="page-title"
-        >
-          { pageTitle }
-        </h3>
-      </div>
-      <div>
-        { isSearching && <SearchBar />}
-      </div>
-    </div>
+        <S.profileIcon className="material-icons">
+          <S.buttonProfile
+            type="button"
+            onClick={ () => history.push('/profile') }
+          >
+            account_circle
+          </S.buttonProfile>
+        </S.profileIcon>
+
+      </S.topBar>
+      <S.searchBarContainer>
+        { isSearching && <SearchBar setIsSearching={ setIsSearching } />}
+      </S.searchBarContainer>
+    </S.header>
   );
 }
 
 Header.propTypes = {
-  pageTitle: PropTypes.string,
   displaySearch: PropTypes.bool,
 };
 
 Header.defaultProps = {
-  pageTitle: '',
   displaySearch: false,
 };
 

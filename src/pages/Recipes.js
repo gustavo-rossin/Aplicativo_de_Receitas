@@ -7,6 +7,7 @@ import MealsContext from '../context/MealsContext';
 import categoryApi from '../services/CategoryApi';
 import CockTailDbApi from '../services/CockTailDbApi';
 import MealDbApi from '../services/MealDbApi';
+import * as S from './styles/Recipes.style';
 
 function Recipes() {
   const history = useHistory();
@@ -67,41 +68,63 @@ function Recipes() {
   };
 
   return (
-    <div>
-      <Footer />
+    <S.recipePageContainer>
       <Header
-        pageTitle={ pageTitle }
         displaySearch
       />
-      <button
-        type="button"
-        data-testid="All-category-filter"
-        checked={ currentCategory === '' }
-        onClick={ () => { getDefaultRecipes(); setCurrentCategory(''); } }
-      >
-        All
-      </button>
-      { categoryResponse.map((e) => (
-        <input
-          type="radio"
-          key={ e.strCategory }
-          data-testid={ `${e.strCategory}-category-filter` }
-          name="category"
-          checked={ currentCategory === e.strCategory }
-          onClick={ () => getMealsOrDrinksByCategory(e.strCategory) }
-        />
-      )).filter((e, i) => i < maxCategories) }
-      {
-        apiResponse && apiResponse.map((e, i) => (
-          <Recipe
-            key={ e.idDrink || e.idMeal }
-            recipe={ e }
-            index={ i }
-            onClick={ () => handleClick(e.idDrink || e.idMeal) }
-          />
-        )).filter((e, i) => i < maxValue)
-      }
-    </div>
+      <S.pageTitle>
+        { pageTitle }
+      </S.pageTitle>
+      <S.categoryContainer>
+        <S.titleButonContainer>
+          <S.buttonsCategory
+            type="button"
+            data-testid="All-category-filter"
+            checked={ currentCategory === '' }
+            onClick={ () => { getDefaultRecipes(); setCurrentCategory(''); } }
+          >
+            <S.buttonIcon className="material-icons">
+              restaurant_menu
+            </S.buttonIcon>
+          </S.buttonsCategory>
+          <S.categoryTitle>All</S.categoryTitle>
+        </S.titleButonContainer>
+        { categoryResponse.map((e) => (
+          <S.titleButonContainer key={ e.strCategory }>
+            <S.buttonsCategory
+              type="button"
+              data-testid={ `${e.strCategory}-category-filter` }
+              name="category"
+              checked={ currentCategory === e.strCategory }
+              onClick={ () => getMealsOrDrinksByCategory(e.strCategory) }
+            >
+              <S.buttonIcon className="material-icons">
+                local_bar
+              </S.buttonIcon>
+
+            </S.buttonsCategory>
+            <S.categoryTitle>
+              {e.strCategory}
+            </S.categoryTitle>
+          </S.titleButonContainer>
+
+        )).filter((e, i) => i < maxCategories) }
+
+      </S.categoryContainer>
+      <S.recipesContainer>
+        {
+          apiResponse && apiResponse.map((e, i) => (
+            <Recipe
+              key={ e.idDrink || e.idMeal }
+              recipe={ e }
+              index={ i }
+              onClick={ () => handleClick(e.idDrink || e.idMeal) }
+            />
+          )).filter((e, i) => i < maxValue)
+        }
+      </S.recipesContainer>
+      <Footer />
+    </S.recipePageContainer>
   );
 }
 
