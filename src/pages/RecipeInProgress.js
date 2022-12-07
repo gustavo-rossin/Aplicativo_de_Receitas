@@ -3,12 +3,11 @@ import { useHistory } from 'react-router-dom';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeart from '../images/whiteHeartIcon.svg';
 import MealsContext from '../context/MealsContext';
 import { verifyFavorite,
   saveFavorite,
   removeFavorite } from '../services/favoriteFunctions';
+import * as S from './styles/RecipeInProgress.style';
 
 const copy = require('clipboard-copy');
 
@@ -114,45 +113,52 @@ function RecipeInProgress() {
 
   return (
 
-    <div>
+    <S.progressContainer>
       {
         recipeInProgress && recipeInProgress.map((e) => (<DetailsMealsDrinks
           recipe={ e }
           key={ e.idMeal || e.idDrink }
         />))
       }
-      {
-        wasCopied ? <p>Link copied!</p> : (
-          <button
-            type="button"
-            data-testid="share-btn"
-            onClick={ clipBoardShare }
-          >
-            share
-          </button>)
-      }
-
-      <button
-        type="button"
-        data-testid="favorite-btn"
-        onClick={ toggleFavorite }
-        src={ isFavorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
-      >
+      <S.shareFavContainer>
         {
-          isFavorite ? <img src={ blackHeartIcon } alt="blackHeart" />
-            : <img src={ whiteHeart } alt="whiteHeart" />
+          wasCopied ? <span>Link copied!</span> : (
+            <S.shareIcon className="material-icons">
+              <S.shareBtn
+                type="button"
+                data-testid="share-btn"
+                onClick={ clipBoardShare }
+              >
+                share
+              </S.shareBtn>
+            </S.shareIcon>)
         }
-      </button>
+        <S.favoriteBtn
+          type="button"
+          data-testid="favorite-btn"
+          onClick={ toggleFavorite }
+        >
 
-      <button
+          <S.favIcon
+            className="material-icons"
+            style={ {
+              color: isFavorite ? '#FCC436' : 'white',
+            } }
+          >
+            favorite
+          </S.favIcon>
+
+        </S.favoriteBtn>
+      </S.shareFavContainer>
+      <S.doneBtn
         type="button"
         data-testid="finish-recipe-btn"
         disabled={ !ingredientsCheck() }
         onClick={ doneRecipe }
       >
         Finalizar
-      </button>
-    </div>
+      </S.doneBtn>
+    </S.progressContainer>
 
   );
 }

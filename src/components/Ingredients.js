@@ -62,21 +62,27 @@ function Ingredients({ ingredient, index }) {
 
   if (history.location.pathname.includes('in-progress')) {
     return (
-      <label
-        htmlFor={ ingredient }
-        data-testid={ `${index}-ingredient-step` }
-        className={ isDone ? 'linethrough' : 'unmarked' }
-
+      <li
+        data-testid={ `${index}
+      -ingredient-name-and-measure` }
+        type="none"
       >
-        <input
-          id={ ingredient }
-          type="checkbox"
-          onChange={ handleClick }
-          checked={ isDone }
-        />
-        {ingredient }
+        <label
+          htmlFor={ ingredient }
+          data-testid={ `${index}-ingredient-step` }
+          className={ isDone ? 'linethrough' : 'unmarked' }
 
-      </label>
+        >
+          <input
+            id={ ingredient }
+            type="checkbox"
+            onChange={ handleClick }
+            checked={ isDone }
+          />
+          { ingredient }
+
+        </label>
+      </li>
     );
   }
 
