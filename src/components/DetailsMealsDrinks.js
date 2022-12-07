@@ -11,6 +11,12 @@ function DetailsMealsDrinks({ recipe }) {
   const measure = extractRecipeInfos('strMeasure');
   const ingredients = ingredientName.map((e, i) => `${e} ${measure[i]}`);
 
+  const getEmbedVideo = (url) => {
+    const splitUrl = url.split('watch?v=');
+    const embededUrl = `${splitUrl[0]}/embed/${splitUrl[1]}`;
+    return embededUrl;
+  };
+
   return (
     <div>
 
@@ -50,12 +56,13 @@ function DetailsMealsDrinks({ recipe }) {
         </S.instructionText>
       </S.instructionContainer>
 
-      <iframe
+      <S.frame
         title={ recipe.strMeal || recipe.strDrink }
         data-testid="video"
-        width="90%"
-        height="315"
-        src={ recipe.strYoutube || recipe.strVideo }
+        allowFullScreen
+        width="100%"
+        height="200"
+        src={ getEmbedVideo(recipe.strYoutube || recipe.strVideo) }
       />
     </div>
   );

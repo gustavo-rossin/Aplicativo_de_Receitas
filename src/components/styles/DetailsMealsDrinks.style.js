@@ -69,5 +69,8 @@ background-color: whitesmoke;
 
 export const instructionText = styled.p`
 padding: 10px;
+`;
 
+export const frame = styled.iframe`
+margin-top: 15px;
 `;
