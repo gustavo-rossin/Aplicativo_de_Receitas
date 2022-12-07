@@ -12,6 +12,7 @@ function DetailsMealsDrinks({ recipe }) {
   const ingredients = ingredientName.map((e, i) => `${e} ${measure[i]}`);
 
   const getEmbedVideo = (url) => {
+    if (!url) return '';
     const splitUrl = url.split('watch?v=');
     const embededUrl = `${splitUrl[0]}/embed/${splitUrl[1]}`;
     return embededUrl;

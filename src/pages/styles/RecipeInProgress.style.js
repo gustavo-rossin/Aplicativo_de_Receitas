@@ -30,6 +30,14 @@ color: #FCC436;
 
 `;
 
+export const linkCopied = styled.span`
+color: #FCC436;
+font-size: 12px;
+position: relative;
+bottom: 13px;
+font-weight: 700;
+`;
+
 export const shareIcon = styled.span`
 color: #FCC436;
 background-color: transparent;
@@ -49,7 +57,6 @@ opacity: 0.8;
 
 export const doneBtn = styled.button`
 background: #FCC436;
-border-radius: 5px;
 height: 42px;
 width: 100%;
 margin: auto;
@@ -64,4 +71,13 @@ font-size: 14px;
 color: white;
 letter-spacing: 0.03em;
 text-transform: uppercase;
+
+:hover{
+  border: 1px solid black;
+}
+
+:disabled{
+  background-color: gray;
+  border: none;
+}
 `;

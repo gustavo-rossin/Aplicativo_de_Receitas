@@ -20,6 +20,10 @@ text-transform: uppercase;
 color: #FFFFFF;
 `;
 
+export const backArrow = styled.span`
+
+`;
+
 export const categoryContainer = styled.div`
 position: absolute;
 top: 0;

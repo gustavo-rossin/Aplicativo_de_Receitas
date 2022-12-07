@@ -1,7 +1,29 @@
 .linethrough {
   text-decoration: line-through solid black;
+  cursor: pointer;
 }
 
 .unmarked {
   text-decoration: solid;
+  cursor: pointer;
+}
+
+.ingredient-checkbox {
+  appearance: none;
+  background-color: transparent;
+  position: relative;
+  top: 2px;
+  margin-right: 3px;
+  width: 1em;
+  height: 1em;
+  border: 1px solid #FCC436;
+  border-radius: 0.2em;
+  margin-top: 1px;
+  cursor: pointer;
+}
+
+.ingredient-checkbox:checked {
+  background-color: #FCC436;
+  clip-path: polygon(41% 52%, 26% 35%, 10% 51%, 37% 88%, 37% 88%, 37% 88%, 37% 88%, 37% 88%, 91% 33%, 78% 18%);
+  cursor: pointer;
 }

@@ -1,20 +1,27 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import React from 'react';
 import * as S from './styles/Recommendation.style';
 
 function Recommendation({ recommended, index }) {
+  const recipeType = recommended.strMeal ? 'meal' : 'drink';
+
+  console.log(recommended);
+
   return (
     <div data-testid={ `${index}-recommendation-card` }>
-      <S.recommendationTitle
-        data-testid={ `${index}-recommendation-title` }
-      >
-        {recommended.strMeal || recommended.strDrink}
-      </S.recommendationTitle>
-      <S.recommendationImg
-        src={ recommended.strMealThumb || recommended.strDrinkThumb }
-        alt="recipeImg"
-        width="180"
-      />
+      <Link to={ `/${recipeType}s/${recommended.idMeal || recommended.idDrink}` }>
+        <S.recommendationTitle
+          data-testid={ `${index}-recommendation-title` }
+        >
+          {recommended.strMeal || recommended.strDrink}
+        </S.recommendationTitle>
+        <S.recommendationImg
+          src={ recommended.strMealThumb || recommended.strDrinkThumb }
+          alt="recipeImg"
+          width="180"
+        />
+      </Link>
     </div>
 
   );

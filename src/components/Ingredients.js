@@ -78,9 +78,9 @@ function Ingredients({ ingredient, index }) {
             type="checkbox"
             onChange={ handleClick }
             checked={ isDone }
+            className="ingredient-checkbox"
           />
           { ingredient }
-
         </label>
       </li>
     );

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, withRouter } from 'react-router-dom';
 import DoneRecipes from './pages/DoneRecipes';
 import Recipes from './pages/Recipes';
 import RecipeDetails from './pages/RecipeDetails';
@@ -14,18 +14,21 @@ export default class Routes extends Component {
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Login } />
-          <Route exact path="/meals" component={ Recipes } />
-          <Route exact path="/meals/:id/in-progress" component={ RecipeInProgress } />
-          <Route exact path="/drinks" component={ Recipes } />
-          <Route path="/drinks/:id/in-progress" component={ RecipeInProgress } />
-          <Route exact path="/drinks/:id" component={ RecipeDetails } />
-          <Route exact path="/meals/:id" component={ RecipeDetails } />
-          <Route exact path="/drinks/:id" component={ RecipeDetails } />
-          <Route exact path="/done-recipes" component={ DoneRecipes } />
-          <Route path="/favorite-recipes" component={ FavoriteRecipes } />
-          <Route path="/profile" component={ Profile } />
-          <Route path="*" component={ NotFound } />
+          <Route exact path="/" component={ withRouter(Login) } />
+          <Route exact path="/meals" component={ withRouter(Recipes) } />
+          <Route
+            exact
+            path="/meals/:id/in-progress"
+            component={ withRouter(RecipeInProgress) }
+          />
+          <Route exact path="/drinks" component={ withRouter(Recipes) } />
+          <Route exact path="/drinks/:id/in-progress" component={ withRouter(RecipeInProgress) } />
+          <Route exact path="/drinks/:id" component={ withRouter(RecipeDetails) } />
+          <Route exact path="/meals/:id" component={ withRouter(RecipeDetails) } />
+          <Route exact path="/done-recipes" component={ withRouter(DoneRecipes) } />
+          <Route path="/favorite-recipes" component={ withRouter(FavoriteRecipes) } />
+          <Route path="/profile" component={ withRouter(Profile) } />
+          <Route path="*" component={ withRouter(NotFound) } />
         </Switch>
       </BrowserRouter>
     );

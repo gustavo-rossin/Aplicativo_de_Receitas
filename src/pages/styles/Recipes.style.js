@@ -20,6 +20,7 @@ export const pageTitle = styled.h3`
 color: #41197F;
 text-align: center;
 position: relative;
+font-weight: 700;
 top: 20px;
 
 `;

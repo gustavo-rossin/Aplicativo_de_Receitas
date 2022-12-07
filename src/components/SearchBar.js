@@ -15,7 +15,8 @@ function SearchBar({ setIsSearching }) {
       const response = await mealApi(inputValue, filter);
       setApiResponse(response.meals);
       if (!response.meals) {
-        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        return window.location.reload();
       }
       if (response.meals.length === 1) {
         history.push(`/meals/${response.meals[0].idMeal}`);
@@ -24,7 +25,8 @@ function SearchBar({ setIsSearching }) {
       const response = await drinkApi(inputValue, filter);
       setApiResponse(response.drinks);
       if (!response.drinks) {
-        return global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+        return window.location.reload();
       }
       if (response.drinks.length === 1) {
         history.push(`/drinks/${response.drinks[0].idDrink}`);

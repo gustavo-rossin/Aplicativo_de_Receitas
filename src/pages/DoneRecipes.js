@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RenderDoneRecipe from '../components/RenderDoneRecipe';
 import Header from '../components/Header';
+import * as S from './styles/DoneRecipes.style';
 
 function DoneRecipes() {
   const [doneRecipes, setDoneRecipes] = useState([]);
@@ -27,31 +28,56 @@ function DoneRecipes() {
   };
 
   return (
-    <div>
+    <S.doneRecipeContainer>
       <Header pageTitle="Done Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ () => setActiveFilter('') }
-      >
-        All
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ () => setActiveFilter('meal') }
-      >
-        Meals
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ () => setActiveFilter('drink') }
-      >
-        Drinks
-      </button>
-      { mapDoneRecipes(doneRecipes, activeFilter) }
-    </div>
+      <S.pageTitle>
+        DONE RECIPES
+      </S.pageTitle>
+      <S.filtersContainer>
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ () => setActiveFilter('') }
+          >
+            <S.buttonIcon className="material-icons">
+              fastfood
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>All</S.categoryTitle>
+        </S.titleButonContainer>
+
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-meal-btn"
+            onClick={ () => setActiveFilter('meal') }
+          >
+            <S.buttonIcon className="material-icons">
+              restaurant_menu
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>Meals</S.categoryTitle>
+        </S.titleButonContainer>
+
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ () => setActiveFilter('drink') }
+          >
+            <S.buttonIcon className="material-icons">
+              local_bar
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>Drinks</S.categoryTitle>
+        </S.titleButonContainer>
+
+      </S.filtersContainer>
+      <S.recipesContainer>
+        { mapDoneRecipes(doneRecipes, activeFilter) }
+      </S.recipesContainer>
+    </S.doneRecipeContainer>
   );
 }
 

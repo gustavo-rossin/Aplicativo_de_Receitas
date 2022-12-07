@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import Header from '../components/Header';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import shareIcon from '../images/shareIcon.svg';
+import * as S from './styles/FavoriteRecipes.style';
+import Footer from '../components/Footer';
 
 const copy = require('clipboard-copy');
 
@@ -43,119 +43,163 @@ function FavoriteRecipes() {
     removeFavorite(favorites, id);
   };
   return (
-    <div>
+    <S.favoritePageContainer>
       <Header pageTitle="Favorite Recipes" />
-      <button
-        type="button"
-        data-testid="filter-by-all-btn"
-        onClick={ filterAll }
-      >
-        All
+      <S.pageTitle>FAVORITES</S.pageTitle>
+      <S.filtersContainer>
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-all-btn"
+            onClick={ filterAll }
+          >
+            <S.buttonIcon className="material-icons">
+              fastfood
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>All</S.categoryTitle>
+        </S.titleButonContainer>
 
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-drink-btn"
-        onClick={ filterDrinks }
-      >
-        Drinks
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-meal-btn"
+            onClick={ filterMeals }
+          >
+            <S.buttonIcon className="material-icons">
+              restaurant_menu
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>Meals</S.categoryTitle>
+        </S.titleButonContainer>
 
-      </button>
-      <button
-        type="button"
-        data-testid="filter-by-meal-btn"
-        onClick={ filterMeals }
-      >
-        Meal
+        <S.titleButonContainer>
+          <S.buttonFilter
+            type="button"
+            data-testid="filter-by-drink-btn"
+            onClick={ filterDrinks }
+          >
+            <S.buttonIcon className="material-icons">
+              local_bar
+            </S.buttonIcon>
+          </S.buttonFilter>
+          <S.categoryTitle>Drinks</S.categoryTitle>
+        </S.titleButonContainer>
 
-      </button>
-      {
-        arrFavorites.map((e, index) => {
-          if (e.type === 'meal') {
-            return (
-              <div key={ e.name }>
-                <NavLink to={ `/meals/${e.id}` }>
-                  <img
+      </S.filtersContainer>
+      <S.recipesContainer>
+        {
+          arrFavorites.map((e, index) => {
+            if (e.type === 'meal') {
+              return (
+                <S.recipeContainer key={ e.name }>
+
+                  <S.recipeImg
                     data-testid={ `${index}-horizontal-image` }
                     alt={ e.name }
                     src={ e.image }
-                    width={ 250 }
-                    height={ 250 }
                   />
-                </NavLink>
-                <p data-testid={ `${index}-horizontal-top-text` }>
-                  {`${e.nationality} - ${e.category}`}
-                </p>
-                <NavLink to={ `/meals/${e.id}` }>
-                  <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
-                </NavLink>
-                <button
-                  type="button"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  onClick={ () => toggleFavorite(e.id) }
-                  src="blackHeartIcon"
-                >
-                  <img src={ blackHeartIcon } alt="blackHeart" name={ e.name } />
-                </button>
-                {
-                  copied === e.id ? <span data-testid={ e.id }>Link copied!</span> : (
-                    <button
-                      type="button"
-                      data-testid={ `${index}-horizontal-share-btn` }
-                      onClick={ () => clipBoardShare(e.id, e.type) }
-                      src="shareIcon"
-                      name={ e.id }
-                    >
-                      <img src={ shareIcon } alt="share" />
-                    </button>)
-                }
-              </div>
-            );
-          }
-          return (
-            <div key={ e.name }>
-              <NavLink to={ `/drinks/${e.id}` }>
-                <img
+
+                  <S.InfosContainer>
+
+                    <NavLink to={ `/meals/${e.id}` }>
+                      <S.recipeTitle
+                        data-testid={
+                          `${index}-horizontal-name`
+                        }
+                      >
+                        {e.name}
+                      </S.recipeTitle>
+                    </NavLink>
+                    <S.nationality data-testid={ `${index}-horizontal-top-text` }>
+                      {`${e.nationality} - ${e.category}`}
+                    </S.nationality>
+                    <S.shareFavContainer>
+                      <S.favoriteBtn
+                        type="button"
+                        data-testid={ `${index}-horizontal-favorite-btn` }
+                        onClick={ () => toggleFavorite(e.id) }
+                        src="blackHeartIcon"
+                      >
+                        <S.favIcon className="material-icons">
+                          favorite
+                        </S.favIcon>
+                      </S.favoriteBtn>
+                      {
+                        copied === e.id ? <S.linkCopied>Link copied!</S.linkCopied> : (
+                          <S.shareIcon className="material-icons">
+                            <S.shareBtn
+                              type="button"
+                              data-testid={ `${index}-horizontal-share-btn` }
+                              onClick={ () => clipBoardShare(e.id, e.type) }
+                              src="shareIcon"
+                              name={ e.id }
+                            >
+                              share
+                            </S.shareBtn>
+                          </S.shareIcon>)
+                      }
+                    </S.shareFavContainer>
+                  </S.InfosContainer>
+                </S.recipeContainer>
+              );
+            }
+            return (
+              <S.recipeContainer key={ e.name }>
+                <S.recipeImg
                   data-testid={ `${index}-horizontal-image` }
                   alt={ e.name }
                   src={ e.image }
-                  width={ 250 }
-                  height={ 250 }
                 />
-              </NavLink>
-              <p data-testid={ `${index}-horizontal-top-text` }>
-                {e.alcoholicOrNot}
-              </p>
-              <NavLink to={ `/drinks/${e.id}` }>
-                <p data-testid={ `${index}-horizontal-name` }>{e.name}</p>
-              </NavLink>
-              <button
-                type="button"
-                data-testid={ `${index}-horizontal-favorite-btn` }
-                onClick={ () => toggleFavorite(e.id) }
-                src="blackHeartIcon"
-              >
-                <img src={ blackHeartIcon } alt="blackHeart" name={ e.name } />
-              </button>
 
-              {
-                copied === e.id ? <span data-testid={ e.id }>Link copied!</span> : (
-                  <button
-                    type="button"
-                    data-testid={ `${index}-horizontal-share-btn` }
-                    onClick={ () => clipBoardShare(e.id, e.type) }
-                    src="shareIcon"
-                    name={ e.id }
-                  >
-                    <img src={ shareIcon } alt="share" />
-                  </button>)
-              }
+                <S.InfosContainer>
 
-            </div>
-          );
-        })
-      }
-    </div>
+                  <NavLink to={ `/drinks/${e.id}` }>
+                    <S.recipeTitle
+                      data-testid={
+                        `${index}-horizontal-name`
+                      }
+                    >
+                      {e.name}
+                    </S.recipeTitle>
+                  </NavLink>
+                  <S.nationality data-testid={ `${index}-horizontal-top-text` }>
+                    {e.alcoholicOrNot}
+                  </S.nationality>
+                  <S.shareFavContainer>
+                    <S.favoriteBtn
+                      type="button"
+                      data-testid={ `${index}-horizontal-favorite-btn` }
+                      onClick={ () => toggleFavorite(e.id) }
+                      src="blackHeartIcon"
+                    >
+                      <S.favIcon className="material-icons">
+                        favorite
+                      </S.favIcon>
+                    </S.favoriteBtn>
+                    {
+                      copied === e.id ? <S.linkCopied>Link copied!</S.linkCopied> : (
+                        <S.shareIcon className="material-icons">
+                          <S.shareBtn
+                            type="button"
+                            data-testid={ `${index}-horizontal-share-btn` }
+                            onClick={ () => clipBoardShare(e.id, e.type) }
+                            src="shareIcon"
+                            name={ e.id }
+                          >
+                            share
+                          </S.shareBtn>
+                        </S.shareIcon>)
+                    }
+                  </S.shareFavContainer>
+                </S.InfosContainer>
+              </S.recipeContainer>
+            );
+          })
+        }
+      </S.recipesContainer>
+      <Footer />
+    </S.favoritePageContainer>
   );
 }
 
