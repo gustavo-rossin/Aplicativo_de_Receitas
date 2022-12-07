@@ -20,8 +20,17 @@ text-transform: uppercase;
 color: #FFFFFF;
 `;
 
-export const backArrow = styled.span`
-
+export const goBackArrow = styled.button`
+  background-color: transparent;
+  margin: 0;
+  padding: 0;
+  border: 0px;
+  position: relative;
+  top: 0;
+  display: flex;
+  align-items: center;
+  color: #FCC436;
+  filter: contrast(200%);
 `;
 
 export const categoryContainer = styled.div`
