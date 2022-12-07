@@ -8,6 +8,7 @@ import categoryApi from '../services/CategoryApi';
 import CockTailDbApi from '../services/CockTailDbApi';
 import MealDbApi from '../services/MealDbApi';
 import * as S from './styles/Recipes.style';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Recipes() {
   const history = useHistory();

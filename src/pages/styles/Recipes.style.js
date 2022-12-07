@@ -28,13 +28,19 @@ export const categoryContainer = styled.div`
 display: flex;
 position: relative;
 z-index: 0;
-align-items: 
-flex-wrap: wrap;
 top: 40px;
 margin: auto;
 overflow-x: scroll;
-::-webkit-scrollbar {
-  display: none;
+overflow-y: hidden;
+::-webkit-scrollbar{
+    background-color: #FCC436;
+    height: 7px;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #41197F;
+    cursor: pointer;
 }
 gap: 20px;
 `;
@@ -54,7 +60,7 @@ font-family: 'Epilogue';
 font-style: normal;
 font-weight: 600;
 font-size: 12px;
-line-height: 9px;
+line-height: 10px;
 text-align: center;
 
 color: #797D86;
@@ -70,6 +76,7 @@ border: 2px solid #FCC436;
 background-color: white;
 width: 60px;
 height: 60px;
+
 `;
 
 export const buttonIcon = styled.span`
