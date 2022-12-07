@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import Ingredients from './Ingredients';
+import * as S from './styles/DetailsMealsDrinks.style';
 
 function DetailsMealsDrinks({ recipe }) {
   const extractRecipeInfos = (key) => Object.entries(recipe)
@@ -12,39 +13,47 @@ function DetailsMealsDrinks({ recipe }) {
 
   return (
     <div>
-      <h1 data-testid="recipe-title">
-        { recipe.strMeal || recipe.strDrink }
-      </h1>
 
-      <img
+      <S.topImg
         src={ recipe.strMealThumb || recipe.strDrinkThumb }
         alt="recipeImg"
         data-testid="recipe-photo"
         width="200"
       />
+      <S.recipeTitle data-testid="recipe-title">
+        { recipe.strMeal || recipe.strDrink }
+      </S.recipeTitle>
 
       <div>
-        <h2>Ingredients</h2>
-        <ul>
+        <S.ingredientTitle>Ingredients</S.ingredientTitle>
+        <S.ingredientsUl>
           {
             ingredients && ingredients
               .map((e, i) => <Ingredients ingredient={ e } key={ e } index={ i } />)
           }
-        </ul>
+        </S.ingredientsUl>
       </div>
 
-      <p data-testid="recipe-category">
-        { recipe.strAlcoholic || recipe.strCategory }
-      </p>
+      <S.categoryContainer>
+        <span className="material-icons">
+          fastfood
+        </span>
+        <S.categoryTitle data-testid="recipe-category">
+          { recipe.strAlcoholic || recipe.strCategory }
+        </S.categoryTitle>
 
-      <p data-testid="instructions">
-        { recipe.strInstructions }
-      </p>
+      </S.categoryContainer>
+      <S.instructionTitle>Instructions</S.instructionTitle>
+      <S.instructionContainer>
+        <S.instructionText data-testid="instructions">
+          { recipe.strInstructions }
+        </S.instructionText>
+      </S.instructionContainer>
 
       <iframe
         title={ recipe.strMeal || recipe.strDrink }
         data-testid="video"
-        width="420"
+        width="90%"
         height="315"
         src={ recipe.strYoutube || recipe.strVideo }
       />

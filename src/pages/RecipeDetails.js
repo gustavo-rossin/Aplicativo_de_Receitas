@@ -3,14 +3,12 @@ import { useHistory } from 'react-router-dom';
 import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import Recommendation from '../components/Recommendation';
 import MealsContext from '../context/MealsContext';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeart from '../images/whiteHeartIcon.svg';
 import drinkApi from '../services/CockTailDbApi';
 import mealApi from '../services/MealDbApi';
 import { verifyFavorite,
   saveFavorite,
   removeFavorite } from '../services/favoriteFunctions';
-import './styles/RecipeDetails.css';
+import * as S from './styles/RecipeDetails.style';
 
 const copy = require('clipboard-copy');
 
@@ -101,7 +99,8 @@ function RecipeDetails() {
   }, []);
 
   return (
-    <>
+    <S.detailsContainer>
+
       {
         idResponse && idResponse.map((e) => (
           <DetailsMealsDrinks
@@ -109,31 +108,38 @@ function RecipeDetails() {
             recipe={ e }
           />))
       }
-      <div>
+      <S.shareFavContainer>
         {
-          wasCopied ? <p>Link copied!</p> : (
-            <button
-              type="button"
-              data-testid="share-btn"
-              onClick={ clipBoardShare }
-            >
-              share
-            </button>)
+          wasCopied ? <span>Link copied!</span> : (
+            <S.shareIcon className="material-icons">
+              <S.shareBtn
+                type="button"
+                data-testid="share-btn"
+                onClick={ clipBoardShare }
+              >
+                share
+              </S.shareBtn>
+            </S.shareIcon>)
         }
-        <button
+        <S.favoriteBtn
           type="button"
           data-testid="favorite-btn"
           onClick={ toggleFavorite }
-          src={ isFavorite ? 'blackHeartIcon' : 'whiteHeartIcon' }
         >
-          {
-            isFavorite ? <img src={ blackHeartIcon } alt="blackHeart" />
-              : <img src={ whiteHeart } alt="whiteHeart" />
-          }
-        </button>
-      </div>
-      <h2>Recommendation</h2>
-      <div className="caroussel">
+
+          <S.favIcon
+            className="material-icons"
+            style={ {
+              color: isFavorite ? '#FCC436' : 'white',
+            } }
+          >
+            favorite
+          </S.favIcon>
+
+        </S.favoriteBtn>
+      </S.shareFavContainer>
+      <S.recommendationTitle>Recommendation</S.recommendationTitle>
+      <S.caroussel className="caroussel">
         {
           apiResponse && apiResponse.map((e, i) => (
             <Recommendation
@@ -143,11 +149,11 @@ function RecipeDetails() {
             />
           )).filter((_e, i) => i < maxValue)
         }
-      </div>
+      </S.caroussel>
 
       {
         !isDone && !inProgress ? (
-          <button
+          <S.startBtn
             type="button"
             data-testid="start-recipe-btn"
             className="start-recipe-btn"
@@ -155,19 +161,19 @@ function RecipeDetails() {
           >
             Start Recipe
 
-          </button>) : (
+          </S.startBtn>) : (
           (
-            <button
+            <S.startBtn
               type="button"
               data-testid="start-recipe-btn"
               onClick={ progressRedirect }
             >
               Continue Recipe
 
-            </button>))
+            </S.startBtn>))
       }
 
-    </>
+    </S.detailsContainer>
   );
 }
 

@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import * as S from './styles/Recommendation.style';
 
 function Recommendation({ recommended, index }) {
   return (
     <div data-testid={ `${index}-recommendation-card` }>
-      <p
+      <S.recommendationTitle
         data-testid={ `${index}-recommendation-title` }
       >
         {recommended.strMeal || recommended.strDrink}
-      </p>
-      <img
+      </S.recommendationTitle>
+      <S.recommendationImg
         src={ recommended.strMealThumb || recommended.strDrinkThumb }
         alt="recipeImg"
         width="180"

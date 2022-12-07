@@ -11,9 +11,6 @@ align-items: center;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-/* @media (max-width: 768px) {
-    width: 100%;
-  } */
 `;
 
 export const formLoginContainer = styled.div`
@@ -42,7 +39,7 @@ top: 10px;
 
 export const tomate = styled.img`
 position: relative;
-top: -10px;
+top: -20px;
 right: 22px;
 width: 220px;
 `;
@@ -51,8 +48,7 @@ export const inputContainer = styled.div`
 height: 235px;
 width: 100%;
 position: relative;
-z-index: 0;
-padding-top: 60px;
+padding-top: 65px;
 display: flex;
 flex-direction: column;
 align-items: center;
