@@ -15,4 +15,7 @@ font-size: 30px;
 color: #FCC436;
 position: relative;
 top: 5px;
+:hover {
+  transform: translateY(1px);
+}
 `;

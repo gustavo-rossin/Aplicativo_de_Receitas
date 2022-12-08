@@ -21,21 +21,33 @@ export const headerLogo = styled.img`
 export const buttonSearch = styled.button`
 background: #FCDC36;
 border: none;
+:hover {
+  transform: translateY(1px);
+}
 `;
 
 export const searchIcon = styled.span`
 color: #41197F;
 font-size: 30px;
+:hover {
+  transform: translateY(1px);
+}
 
 `;
 
 export const buttonProfile = styled.button`
 background: #FCDC36;
 border: none;
+:hover {
+  transform: translateY(1px);
+}
 `;
 
 export const profileIcon = styled.span`
 color: #41197F;
+:hover {
+  transform: translateY(1px);
+}
 font-size: 30px;
 `;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const recipePageContainer = styled.div`
-height: 470px;
+height: 460px;
 width: 262px;
 position: absolute;
 background-color: white;
@@ -77,6 +77,9 @@ border: 2px solid #FCC436;
 background-color: white;
 width: 60px;
 height: 60px;
+:hover {
+  transform: translateY(1px);
+}
 
 `;
 

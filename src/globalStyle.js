@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import background from './images/fundo-madeira.jpg';
+import background from './images/background.jpg';
 import phone from './images/frame-iphone.png';
 
 const GlobalStyle = createGlobalStyle`
@@ -35,6 +35,21 @@ main{
     left: 50%;
     transform: translate(-50%, -50%);
     background: url(${phone}) no-repeat;
+}
+
+.home {
+    width: 50px;
+    position: fixed;
+    left: 42%;
+    bottom: 0;
+    margin-bottom: 17px;
+    height: 50px;
+    background-color: transparent;
+    border-radius: 100%;
+}
+
+.home:hover{
+border: 0.5px solid black;
 }
 `;
 

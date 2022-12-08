@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const favoritePageContainer = styled.div`
-height: 470px;
+height: 460px;
 width: 262px;
 position: absolute;
 background-color: white;
@@ -52,6 +52,9 @@ border: 2px solid #FCC436;
 background-color: white;
 width: 60px;
 height: 60px;
+:hover {
+  transform: translateY(1px);
+}
 `;
 
 export const buttonIcon = styled.span`
@@ -68,10 +71,17 @@ font-size: 12px;
 line-height: 10px;
 text-align: center;
 color: #797D86;
+
 `;
 
 export const recipesContainer = styled.div`
 padding-top: 70px;
+`;
+
+export const footerDiv = styled.div`
+position: absolute;
+bottom: 0;
+width: 100%;
 `;
 
 export const recipeContainer = styled.div`
@@ -142,6 +152,9 @@ font-size: 22px;
 position: relative;
 top: 7px;
 color: #1A1B1C;
+:hover {
+  transform: translateY(1px);
+}
 `;
 
 export const InfosContainer = styled.div`

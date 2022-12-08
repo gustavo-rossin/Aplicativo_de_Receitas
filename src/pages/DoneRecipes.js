@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import RenderDoneRecipe from '../components/RenderDoneRecipe';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import * as S from './styles/DoneRecipes.style';
 
 function DoneRecipes() {
@@ -77,6 +78,14 @@ function DoneRecipes() {
       <S.recipesContainer>
         { mapDoneRecipes(doneRecipes, activeFilter) }
       </S.recipesContainer>
+      {
+        Object.keys(doneRecipes).length === 0
+          ? (
+            <S.footerDiv>
+              <Footer />
+            </S.footerDiv>)
+          : <Footer />
+      }
     </S.doneRecipeContainer>
   );
 }

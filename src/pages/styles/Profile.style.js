@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const profileContainer = styled.div`
-height: 470px;
+height: 460px;
 width: 262px;
 position: absolute;
 background-color: white;
@@ -39,6 +39,9 @@ padding-top: 40px;
 export const buttonContainer = styled.div`
 position: relative;
 left: 30px;
+:hover {
+  transform: translateY(1px);
+}
 `;
 
 export const button = styled.button`

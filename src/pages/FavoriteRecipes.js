@@ -198,7 +198,15 @@ function FavoriteRecipes() {
           })
         }
       </S.recipesContainer>
-      <Footer />
+      {
+        Object.keys(favorites).length === 0
+          ? (
+            <S.footerDiv>
+              <Footer />
+            </S.footerDiv>)
+          : <Footer />
+      }
+
     </S.favoritePageContainer>
   );
 }
