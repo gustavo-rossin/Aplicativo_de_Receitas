@@ -32,6 +32,8 @@ Recommendation.propTypes = {
     strMealThumb: PropTypes.string.isRequired,
     strMeal: PropTypes.string.isRequired,
     strDrink: PropTypes.string.isRequired,
+    idDrink: PropTypes.string.isRequired,
+    idMeal: PropTypes.string.isRequired,
   }).isRequired,
 };
 

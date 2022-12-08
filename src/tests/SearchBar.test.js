@@ -17,7 +17,7 @@ describe('Testes para o Componente Search bar', () => {
   const searchInput = 'search-input';
   const searchTopBtn = 'search-top-btn';
   const execSearchBtn = 'exec-search-btn';
-  const chickenHandi = 'Chicken Handi';
+  // const chickenHandi = 'Chicken Handi';
 
   it.only('1) Verifica a busca sem filtros', async () => {
     jest.spyOn(global, 'fetch');

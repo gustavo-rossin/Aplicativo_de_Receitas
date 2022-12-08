@@ -26,7 +26,7 @@ function DetailsMealsDrinks({ recipe }) {
   const handleBackArrow = () => {
     if (history.location.pathname.includes('in-progress')) return history.goBack();
     history.push(`/${recipeType}s`);
-  }
+  };
 
   return (
     <div>
