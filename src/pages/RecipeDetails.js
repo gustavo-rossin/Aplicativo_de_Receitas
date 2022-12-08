@@ -4,10 +4,10 @@ import DetailsMealsDrinks from '../components/DetailsMealsDrinks';
 import Recommendation from '../components/Recommendation';
 import MealsContext from '../context/MealsContext';
 import drinkApi from '../services/CockTailDbApi';
+import {
+  removeFavorite, saveFavorite, verifyFavorite
+} from '../services/favoriteFunctions';
 import mealApi from '../services/MealDbApi';
-import { verifyFavorite,
-  saveFavorite,
-  removeFavorite } from '../services/favoriteFunctions';
 import * as S from './styles/RecipeDetails.style';
 
 const copy = require('clipboard-copy');
@@ -110,7 +110,13 @@ function RecipeDetails() {
       }
       <S.shareFavContainer>
         {
-          wasCopied ? <S.linkCopied>Link copied!</S.linkCopied> : (
+          wasCopied ? (
+            <S.linkCopied>
+              Link
+              <br />
+              copied!
+            </S.linkCopied>
+          ) : (
             <S.shareIcon className="material-icons">
               <S.shareBtn
                 type="button"
