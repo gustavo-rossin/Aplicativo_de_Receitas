@@ -14,9 +14,9 @@ describe('Testa a pagina Profile', () => {
 
     const title = screen.getByRole('heading', { name: /profile/i });
     const email = screen.getByText('o@o.com');
-    const btnDone = screen.getByRole('button', { name: /done recipes/i });
-    const btnFav = screen.getByRole('button', { name: /favorite recipes/i });
-    const btnLogout = screen.getByRole('button', { name: /logout/i });
+    const btnDone = screen.getByTestId('profile-done-btn');
+    const btnFav = screen.getByTesteId('profile-favorite-btn');
+    const btnLogout = screen.getByTestId('profile-logout-btn');
     const drinkIcon = screen.getByRole('img', { name: /drinkicon/i });
     const mealIcon = screen.getByRole('img', { name: /mealicon/i });
 
@@ -32,7 +32,7 @@ describe('Testa a pagina Profile', () => {
   it('testa se o botão de done recipes funciona corretamente', async () => {
     const { history } = renderWithRouter(<Profile />);
 
-    const btnDone = screen.getByRole('button', { name: /done recipes/i });
+    const btnDone = screen.getByTestId('profile-done-btn');
     userEvent.click(btnDone);
     await waitFor(() => expect(history.location.pathname).toBe('/done-recipes'));
   });
@@ -40,14 +40,14 @@ describe('Testa a pagina Profile', () => {
   it('testa se o botão de favoritos funciona corretamente', async () => {
     const { history } = renderWithRouter(<Profile />);
     global.localStorage.clear();
-    const btnFav = screen.getByRole('button', { name: /favorite recipes/i });
+    const btnFav = screen.getByTesteId('profile-favorite-btn');
     userEvent.click(btnFav);
     await waitFor(() => expect(history.location.pathname).toBe('/favorite-recipes'));
   });
 
   it('testa se o botão de logout funciona corretamente', async () => {
     const { history } = renderWithRouter(<Profile />);
-    const btnLogout = screen.getByRole('button', { name: /logout/i });
+    const btnLogout = screen.getByTestId('profile-logout-btn');
     userEvent.click(btnLogout);
 
     await waitFor(() => expect(history.location.pathname).toBe('/'));

@@ -68,15 +68,12 @@ describe('Testes da página de \'Recipe in Progress \'', () => {
     userEvent.click(shareBtn);
     screen.getByText('Link copied!');
     const favoriteBtn = screen.getByTestId('favorite-btn');
-    expect(favoriteBtn).toHaveAttribute('src', 'whiteHeartIcon');
 
     userEvent.click(favoriteBtn);
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favoriteBtn).toHaveAttribute('src', 'blackHeartIcon');
     expect(favorites).toHaveLength(1);
 
     userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', 'whiteHeartIcon');
 
     const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(newFavorites).toHaveLength(0);

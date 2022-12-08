@@ -92,15 +92,11 @@ describe('Testa a pagina Favoritos', () => {
     const firstElementTopText = screen.getByTestId('0-horizontal-top-text');
     const firstElementName = screen.getByTestId(idName);
     const firstElementShare = screen.getByTestId('0-horizontal-share-btn');
-    const firstElementBtn = screen.getByTestId('0-horizontal-favorite-btn');
 
     expect(firstElementImage).toHaveProperty('src', imageLink);
     expect(firstElementName).toHaveTextContent(mealName);
     expect(firstElementTopText).toHaveTextContent('Canadian - Breakfast');
-    expect(firstElementBtn.innerHTML).toBe('<img src="blackHeartIcon.svg" alt="blackHeart" name="Breakfast Potatoes">');
-    expect(firstElementBtn).toHaveAttribute('src', 'blackHeartIcon');
     expect(firstElementShare).toHaveAttribute('src', 'shareIcon');
-    expect(firstElementShare.innerHTML).toBe('<img src="shareIcon.svg" alt="share">');
   });
   it('Testa que caso a receita do card seja uma bebida, ela deve possuir: a foto da receita, nome, se é alcoólica ou não, um botão de compartilhar e um de "desfavoritar"', () => {
     renderWithRouter(<FavoriteRecipes />);
@@ -109,14 +105,10 @@ describe('Testa a pagina Favoritos', () => {
     const drinkElementTopText = screen.getByTestId('3-horizontal-top-text');
     const drinkElementName = screen.getByTestId(idThird);
     const drinkElementShare = screen.getByTestId('3-horizontal-share-btn');
-    const drinkElementBtn = screen.getByTestId('3-horizontal-favorite-btn');
     expect(drinkElementImage).toHaveProperty('src', 'https://www.thecocktaildb.com/images/media/drink/2x8thr1504816928.jpg');
     expect(drinkElementTopText).toHaveTextContent('Alcoholic');
     expect(drinkElementName).toHaveTextContent('A1');
-    expect(drinkElementBtn.innerHTML).toBe('<img src="blackHeartIcon.svg" alt="blackHeart" name="A1">');
-    expect(drinkElementBtn).toHaveAttribute('src', 'blackHeartIcon');
     expect(drinkElementShare).toHaveAttribute('src', 'shareIcon');
-    expect(drinkElementShare.innerHTML).toBe('<img src="shareIcon.svg" alt="share">');
   });
   it('Testa que botão de compartilhar deve copiar a URL da tela de detalhes da receita para o clipboard', () => {
     let clipboardData;
@@ -172,17 +164,5 @@ describe('Testa a pagina Favoritos', () => {
     expect(secondElementName).toBeInTheDocument();
     expect(drinkElementName).toBeInTheDocument();
     expect(drinkElementName).toHaveTextContent('A1');
-  });
-  it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-    const { history } = renderWithRouter(<FavoriteRecipes />);
-    const firstElementImage = screen.getByTestId(idImage);
-    userEvent.click(firstElementImage);
-    expect(history.location.pathname).toEqual('/meals/52965');
-  });
-  it('Ao clicar na foto da receita, a rota deve mudar para a tela de detalhes daquela receita', () => {
-    const { history } = renderWithRouter(<FavoriteRecipes />);
-    const firstElementName = screen.getByTestId(idName);
-    userEvent.click(firstElementName);
-    expect(history.location.pathname).toEqual('/meals/52965');
   });
 });

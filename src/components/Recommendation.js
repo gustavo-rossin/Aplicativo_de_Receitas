@@ -6,8 +6,6 @@ import * as S from './styles/Recommendation.style';
 function Recommendation({ recommended, index }) {
   const recipeType = recommended.strMeal ? 'meal' : 'drink';
 
-  console.log(recommended);
-
   return (
     <div data-testid={ `${index}-recommendation-card` }>
       <Link to={ `/${recipeType}s/${recommended.idMeal || recommended.idDrink}` }>

@@ -45,7 +45,7 @@ describe('Testes da página de detalhes', () => {
     expect(instructions).toHaveTextContent(etonMessMock.meals[0].strInstructions);
 
     const video = screen.getByTestId('video');
-    expect(video).toHaveAttribute('src', 'https://www.youtube.com/watch?v=43WgiNq54L8');
+    expect(video).toHaveAttribute('src', 'https://www.youtube.com//embed/43WgiNq54L8');
 
     const recommendationTitle = screen.getByRole('heading', { name: /recommendation/i,
     });
@@ -110,15 +110,12 @@ describe('Testes da página de detalhes', () => {
     userEvent.click(shareBtn);
     screen.getByText('Link copied!');
     const favoriteBtn = screen.getByTestId('favorite-btn');
-    expect(favoriteBtn).toHaveAttribute('src', 'whiteHeartIcon');
 
     userEvent.click(favoriteBtn);
     const favorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
-    expect(favoriteBtn).toHaveAttribute('src', 'blackHeartIcon');
     expect(favorites).toHaveLength(1);
 
     userEvent.click(favoriteBtn);
-    expect(favoriteBtn).toHaveAttribute('src', 'whiteHeartIcon');
 
     const newFavorites = JSON.parse(localStorage.getItem('favoriteRecipes'));
     expect(newFavorites).toHaveLength(0);

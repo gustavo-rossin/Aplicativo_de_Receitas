@@ -24,7 +24,6 @@ function Recipes() {
     if (pageTitle === 'Meals') {
       data = await MealDbApi('', 'nome');
       if (data.meals) setApiResponse(data.meals);
-      console.log(data.meals);
     }
     if (pageTitle === 'Drinks') {
       data = await CockTailDbApi('', 'nome');

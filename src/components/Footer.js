@@ -9,7 +9,7 @@ function Footer() {
         to="/drinks"
         type="button"
       >
-        <S.mealIcon className="material-icons">
+        <S.mealIcon className="material-icons" data-testid="drinks-bottom-btn">
           local_bar
         </S.mealIcon>
       </Link>
@@ -18,7 +18,7 @@ function Footer() {
         to="/meals"
         type="button"
       >
-        <S.mealIcon className="material-icons">
+        <S.mealIcon className="material-icons" data-testid="meals-bottom-btn">
           restaurant
         </S.mealIcon>
       </Link>

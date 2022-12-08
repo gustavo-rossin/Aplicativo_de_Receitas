@@ -17,7 +17,7 @@ function Header({ displaySearch }) {
         <S.headerLogo src={ logo } alt="logo" />
         {
           displaySearch && (
-            <S.searchIcon className="material-icons">
+            <S.searchIcon className="material-icons" data-testid="search-top-btn">
               <S.buttonSearch
                 type="button"
                 onClick={ () => setIsSearching(!isSearching) }
