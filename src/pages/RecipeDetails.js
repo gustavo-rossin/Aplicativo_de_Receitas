@@ -5,7 +5,7 @@ import Recommendation from '../components/Recommendation';
 import MealsContext from '../context/MealsContext';
 import drinkApi from '../services/CockTailDbApi';
 import {
-  removeFavorite, saveFavorite, verifyFavorite
+  removeFavorite, saveFavorite, verifyFavorite,
 } from '../services/favoriteFunctions';
 import mealApi from '../services/MealDbApi';
 import * as S from './styles/RecipeDetails.style';
