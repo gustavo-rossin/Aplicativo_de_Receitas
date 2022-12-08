@@ -3,7 +3,8 @@ import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import './styles/Ingredients.css';
 import MealsContext from '../context/MealsContext';
-//
+import * as S from './styles/Ingredients.style';
+
 function Ingredients({ ingredient, index }) {
   const history = useHistory();
 
@@ -73,12 +74,12 @@ function Ingredients({ ingredient, index }) {
           className={ isDone ? 'linethrough' : 'unmarked' }
 
         >
-          <input
+          <S.Checkbox
             id={ ingredient }
             type="checkbox"
             onChange={ handleClick }
             checked={ isDone }
-            className="ingredient-checkbox"
+
           />
           { ingredient }
         </label>
