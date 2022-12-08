@@ -94,7 +94,7 @@ overflow: hidden;
 
 export const shareFavContainer = styled.div`
 position: relative;
-left: 30px;
+left: 10px;
 `;
 
 export const shareBtn = styled.button`
