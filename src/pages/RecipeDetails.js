@@ -110,7 +110,7 @@ function RecipeDetails() {
       }
       <S.shareFavContainer>
         {
-          wasCopied ? <span>Link copied!</span> : (
+          wasCopied ? <S.linkCopied>Link copied!</S.linkCopied> : (
             <S.shareIcon className="material-icons">
               <S.shareBtn
                 type="button"

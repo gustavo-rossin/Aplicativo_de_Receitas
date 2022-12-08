@@ -14,6 +14,14 @@ overflow-y: scroll;
 }
 `;
 
+export const linkCopied = styled.span`
+color: #FCC436;
+font-size: 12px;
+position: relative;
+bottom: 13px;
+font-weight: 700;
+`;
+
 export const shareFavContainer = styled.div`
 position: absolute;
 top: 0;
