@@ -89,113 +89,56 @@ function FavoriteRecipes() {
       </S.filtersContainer>
       <S.recipesContainer>
         {
-          arrFavorites.map((e, index) => {
-            if (e.type === 'meal') {
-              return (
-                <S.recipeContainer key={ e.name }>
+          arrFavorites.map((e, index) => (
+            <S.recipeContainer key={ e.name }>
 
-                  <S.recipeImg
-                    data-testid={ `${index}-horizontal-image` }
-                    alt={ e.name }
-                    src={ e.image }
-                  />
+              <S.recipeImg
+                data-testid={ `${index}-horizontal-image` }
+                alt={ e.name }
+                src={ e.image }
+              />
 
-                  <S.InfosContainer>
-
-                    <NavLink to={ `/meals/${e.id}` }>
-                      <S.recipeTitle
-                        data-testid={
-                          `${index}-horizontal-name`
-                        }
-                      >
-                        {e.name}
-                      </S.recipeTitle>
-                    </NavLink>
-                    <S.nationality data-testid={ `${index}-horizontal-top-text` }>
-                      {`${e.nationality} - ${e.category}`}
-                    </S.nationality>
-                    <S.shareFavContainer>
-                      <S.favoriteBtn
-                        type="button"
-                        data-testid={ `${index}-horizontal-favorite-btn` }
-                        onClick={ () => toggleFavorite(e.id) }
-                        src="blackHeartIcon"
-                      >
-                        <S.favIcon className="material-icons">
-                          favorite
-                        </S.favIcon>
-                      </S.favoriteBtn>
-                      {
-                        copied === e.id ? <S.linkCopied>Link copied!</S.linkCopied> : (
-                          <S.shareIcon className="material-icons">
-                            <S.shareBtn
-                              type="button"
-                              data-testid={ `${index}-horizontal-share-btn` }
-                              onClick={ () => clipBoardShare(e.id, e.type) }
-                              src="shareIcon"
-                              name={ e.id }
-                            >
-                              share
-                            </S.shareBtn>
-                          </S.shareIcon>)
-                      }
-                    </S.shareFavContainer>
-                  </S.InfosContainer>
-                </S.recipeContainer>
-              );
-            }
-            return (
-              <S.recipeContainer key={ e.name }>
-                <S.recipeImg
-                  data-testid={ `${index}-horizontal-image` }
-                  alt={ e.name }
-                  src={ e.image }
-                />
-
-                <S.InfosContainer>
-
-                  <NavLink to={ `/drinks/${e.id}` }>
-                    <S.recipeTitle
-                      data-testid={
-                        `${index}-horizontal-name`
-                      }
-                    >
-                      {e.name}
-                    </S.recipeTitle>
-                  </NavLink>
-                  <S.nationality data-testid={ `${index}-horizontal-top-text` }>
-                    {e.alcoholicOrNot}
-                  </S.nationality>
-                  <S.shareFavContainer>
-                    <S.favoriteBtn
-                      type="button"
-                      data-testid={ `${index}-horizontal-favorite-btn` }
-                      onClick={ () => toggleFavorite(e.id) }
-                      src="blackHeartIcon"
-                    >
-                      <S.favIcon className="material-icons">
-                        favorite
-                      </S.favIcon>
-                    </S.favoriteBtn>
-                    {
-                      copied === e.id ? <S.linkCopied>Link copied!</S.linkCopied> : (
-                        <S.shareIcon className="material-icons">
-                          <S.shareBtn
-                            type="button"
-                            data-testid={ `${index}-horizontal-share-btn` }
-                            onClick={ () => clipBoardShare(e.id, e.type) }
-                            src="shareIcon"
-                            name={ e.id }
-                          >
-                            share
-                          </S.shareBtn>
-                        </S.shareIcon>)
+              <S.InfosContainer>
+                <NavLink to={ e.type === 'meal' ? `/meals/${e.id}` : `/drinks/${e.id}` }>
+                  <S.recipeTitle
+                    data-testid={
+                      `${index}-horizontal-name`
                     }
-                  </S.shareFavContainer>
-                </S.InfosContainer>
-              </S.recipeContainer>
-            );
-          })
+                  >
+                    {e.name}
+                  </S.recipeTitle>
+                </NavLink>
+                <S.nationality data-testid={ `${index}-horizontal-top-text` }>
+                  {`${e.nationality} - ${e.category}` || e.alcoholicOrNot}
+                </S.nationality>
+                <S.shareFavContainer>
+                  <S.favoriteBtn
+                    type="button"
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                    onClick={ () => toggleFavorite(e.id) }
+                  >
+                    <S.favIcon className="material-icons">
+                      favorite
+                    </S.favIcon>
+                  </S.favoriteBtn>
+                  {
+                    copied === e.id ? <S.linkCopied>Link copied!</S.linkCopied> : (
+                      <S.shareIcon className="material-icons">
+                        <S.shareBtn
+                          type="button"
+                          data-testid={ `${index}-horizontal-share-btn` }
+                          onClick={ () => clipBoardShare(e.id, e.type) }
+                          src="shareIcon"
+                          name={ e.id }
+                        >
+                          share
+                        </S.shareBtn>
+                      </S.shareIcon>)
+                  }
+                </S.shareFavContainer>
+              </S.InfosContainer>
+            </S.recipeContainer>
+          ))
         }
       </S.recipesContainer>
       {
