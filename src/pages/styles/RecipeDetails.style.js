@@ -17,9 +17,12 @@ overflow-y: scroll;
 export const linkCopied = styled.span`
 color: #FCC436;
 font-size: 12px;
-position: relative;
-bottom: 13px;
+position: absolute;
+bottom: 12px;
 font-weight: 700;
+right: 40px;
+top: 0;
+text-align: center;
 `;
 
 export const shareFavContainer = styled.div`
@@ -38,7 +41,7 @@ color: #FCC436;
 
 `;
 
-export const shareIcon = styled.span`
+export const shareIcon = styled.p`
 color: #FCC436;
 background-color: transparent;
 font-size: 30px;
