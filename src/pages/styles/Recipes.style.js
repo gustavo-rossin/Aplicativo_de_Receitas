@@ -25,24 +25,39 @@ top: 20px;
 
 `;
 
+export const slideDiv = styled.div`
+display:flex;
+transition: ease 0.5s;
+`;
+
+export const leftArrow = styled.span`
+position: absolute;
+top: 148px;
+z-index: 1;
+cursor: pointer;
+font-size: 30px;
+font-weight: 700;
+opacity: 0.7;
+`;
+export const rightArrow = styled.span`
+position: absolute;
+right: 0;
+cursor: pointer;
+z-index: 1;
+top: 148px;
+opacity: 0.7;
+font-size: 30px;
+font-weight: 700;
+`;
+
 export const categoryContainer = styled.div`
 display: flex;
 position: relative;
 z-index: 0;
 top: 40px;
 margin: auto;
-overflow-x: scroll;
+overflow-x: hidden;
 overflow-y: hidden;
-::-webkit-scrollbar{
-    background-color: #FCC436;
-    height: 7px;
-    cursor: pointer;
-}
-
-::-webkit-scrollbar-thumb{
-    background-color: #41197F;
-    cursor: pointer;
-}
 gap: 20px;
 `;
 

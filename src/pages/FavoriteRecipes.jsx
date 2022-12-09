@@ -14,14 +14,17 @@ function FavoriteRecipes() {
   const filterAll = () => {
     setFavorites(favorites);
   };
+
   const filterMeals = () => {
     const filterMeal = favorites.filter((e) => e.type === 'meal');
     setFavorites(filterMeal);
   };
+
   const filterDrinks = () => {
     const filterDrink = favorites.filter((e) => e.type === 'drink');
     setFavorites(filterDrink);
   };
+
   const removeFavorite = (arr, id) => {
     const filterFavorite = arr.filter((e) => +e.id !== +id);
     localStorage.setItem('favoriteRecipes', JSON.stringify(filterFavorite));
