@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../images/logo.svg';
 import tomatepicture from '../images/tomate.svg';
 import * as S from './styles/Login.style';
@@ -14,7 +14,7 @@ function Login({ history }) {
     const regexEmail = /\S+@\S+\.\S+/;
     const validateMail = regexEmail.test(email);
 
-    if (password.length > setMinVal && validateMail) {
+    if (password.length >= setMinVal && validateMail) {
       setDisabled(false);
     } else { setDisabled(true); }
   };
